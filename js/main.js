@@ -1,166 +1,203 @@
-/**
- * TRASTE — Luthería Artesanal
- * main.js
- *
- * Módulos:
- *  1. Accordion — método de trabajo (una sola sección abierta a la vez)
- *  2. Scroll fade-up — revelado de elementos al hacer scroll
- *  3. Nav hide/show — oculta el nav al scrollear hacia abajo
- */
+/* =============================================
+   TRASTES — LUTHERÍA DE AUTOR
+   main.js
+   ============================================= */
 
-'use strict';
+document.addEventListener('DOMContentLoaded', () => {
 
-/* ══════════════════════════════════════════════════════════
-   1. ACCORDION
-   ══════════════════════════════════════════════════════════ */
+  // ─── NAV SHADOW ON SCROLL ───────────────────────────────────
+  const nav = document.querySelector('.nav');
+  window.addEventListener('scroll', () => {
+    nav.style.boxShadow = window.scrollY > 30
+      ? '0 2px 24px rgba(13,13,13,0.08)'
+      : 'none';
+  }, { passive: true });
 
-(function initAccordion() {
-  const items    = document.querySelectorAll('.accordion__item');
-  const triggers = document.querySelectorAll('.accordion__trigger');
 
-  if (!triggers.length) return;
+  // ─── ACCORDION ──────────────────────────────────────────────
+  const accordionItems = document.querySelectorAll('.accordion-item');
 
-  /**
-   * Abre un item y cierra el resto.
-   * @param {Element} targetItem - El .accordion__item a abrir.
-   */
-  function openItem(targetItem) {
-    items.forEach(function (item) {
-      const trigger = item.querySelector('.accordion__trigger');
-      const isTarget = item === targetItem;
-
-      if (isTarget) {
-        item.classList.add('open');
-        trigger.setAttribute('aria-expanded', 'true');
-      } else {
-        item.classList.remove('open');
-        trigger.setAttribute('aria-expanded', 'false');
-      }
-    });
-  }
-
-  /**
-   * Cierra un item abierto (toggle off).
-   * @param {Element} item - El .accordion__item a cerrar.
-   */
-  function closeItem(item) {
-    item.classList.remove('open');
-    item.querySelector('.accordion__trigger').setAttribute('aria-expanded', 'false');
-  }
-
-  triggers.forEach(function (trigger) {
-    trigger.addEventListener('click', function () {
-      const item   = trigger.closest('.accordion__item');
-      const isOpen = item.classList.contains('open');
-
-      if (isOpen) {
-        closeItem(item);
-      } else {
-        openItem(item);
-      }
+  accordionItems.forEach(item => {
+    const header = item.querySelector('.accordion-header');
+    header.addEventListener('click', () => {
+      const isActive = item.classList.contains('active');
+      // Close all
+      accordionItems.forEach(i => i.classList.remove('active'));
+      // Open clicked if it was closed
+      if (!isActive) item.classList.add('active');
     });
   });
-})();
 
 
-/* ══════════════════════════════════════════════════════════
-   2. SCROLL FADE-UP
-   ══════════════════════════════════════════════════════════ */
+  // ─── TESTIMONIALS CAROUSEL ──────────────────────────────────
+  const track     = document.getElementById('testimonios-track');
+  const prevBtn   = document.getElementById('t-prev');
+  const nextBtn   = document.getElementById('t-next');
+  const cards     = track ? track.querySelectorAll('.testimonio-card') : [];
+  let   currentIndex = 0;
 
-(function initFadeUp() {
-  const elements = document.querySelectorAll('.fade-up');
-  if (!elements.length) return;
-
-  // Respeta la preferencia de movimiento reducido del sistema operativo
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReduced) {
-    // Marca todos como visibles de inmediato sin animación
-    elements.forEach(function (el) { el.classList.add('visible'); });
-    return;
+  function getCardsVisible() {
+    return window.innerWidth <= 640 ? 1 : 2;
   }
 
-  const observer = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+  function updateCarousel() {
+    if (!track || cards.length === 0) return;
+    const visible  = getCardsVisible();
+    const maxIndex = Math.max(0, cards.length - visible);
+    currentIndex   = Math.min(Math.max(currentIndex, 0), maxIndex);
+
+    // Calculate offset based on first card width + gap
+    const cardWidth = cards[0].getBoundingClientRect().width;
+    const gap       = 24; // 1.5rem gap
+    const offset    = currentIndex * (cardWidth + gap);
+    track.style.transform = `translateX(-${offset}px)`;
+  }
+
+  if (prevBtn && nextBtn) {
+    prevBtn.addEventListener('click', () => { currentIndex--; updateCarousel(); });
+    nextBtn.addEventListener('click', () => { currentIndex++; updateCarousel(); });
+    window.addEventListener('resize', updateCarousel, { passive: true });
+  }
+
+
+  // ─── SCROLL REVEAL ──────────────────────────────────────────
+  const revealEls = document.querySelectorAll(
+    '.section-title, .section-eyebrow, .accordion-item, .modelo-card, ' +
+    '.pieza-item, .timeline-step, .testimonio-card, .galeria-item, ' +
+    '.nosotros-manifesto, .nosotros-stats, .stat, .contacto-title'
   );
 
-  elements.forEach(function (el) { observer.observe(el); });
-})();
-
-
-/* ══════════════════════════════════════════════════════════
-   3. NAV HIDE / SHOW AL SCROLLEAR
-   ══════════════════════════════════════════════════════════ */
-
-(function initNavScroll() {
-  const nav = document.getElementById('navbar');
-  if (!nav) return;
-
-  let lastScrollY = 0;
-  let ticking     = false;
-
-  function updateNav() {
-    const currentY = window.scrollY;
-
-    if (currentY < 80) {
-      // Siempre visible cerca del top
-      nav.style.transform  = 'translateY(0)';
-      nav.style.transition = 'none';
-    } else if (currentY > lastScrollY) {
-      // Scrolleando hacia abajo → ocultar
-      nav.style.transform  = 'translateY(-100%)';
-      nav.style.transition = 'transform 0.35s ease';
-    } else {
-      // Scrolleando hacia arriba → mostrar
-      nav.style.transform  = 'translateY(0)';
-      nav.style.transition = 'transform 0.35s ease';
+  // Add reveal class
+  revealEls.forEach((el, i) => {
+    el.classList.add('reveal');
+    // Stagger siblings in grid containers
+    const parent = el.parentElement;
+    if (parent) {
+      const siblings = parent.querySelectorAll(':scope > *');
+      siblings.forEach((sib, idx) => {
+        if (sib === el) {
+          const delay = Math.min(idx, 5);
+          if (delay > 0) el.classList.add(`reveal-delay-${delay}`);
+        }
+      });
     }
+  });
 
-    lastScrollY = currentY;
-    ticking     = false;
+  // IntersectionObserver for performance
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  revealEls.forEach(el => observer.observe(el));
+
+
+  // ─── GALERÍA LIGHTBOX (simple) ──────────────────────────────
+  const galeriaItems = document.querySelectorAll('.galeria-item');
+  let   lightbox     = null;
+
+  function createLightbox(content) {
+    const lb = document.createElement('div');
+    lb.style.cssText = `
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(13,13,13,0.96);
+      display: flex; align-items: center; justify-content: center;
+      cursor: zoom-out;
+      animation: fadeIn 0.25s ease;
+    `;
+    const style = document.createElement('style');
+    style.textContent = '@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }';
+    lb.appendChild(style);
+
+    const inner = document.createElement('div');
+    inner.style.cssText = `
+      max-width: 80vw; max-height: 80vh;
+      background: #1a1510;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      min-width: 400px; min-height: 300px;
+    `;
+    inner.innerHTML = content;
+    lb.appendChild(inner);
+
+    lb.addEventListener('click', () => {
+      document.body.removeChild(lb);
+      lightbox = null;
+    });
+
+    document.body.appendChild(lb);
+    lightbox = lb;
   }
 
-  window.addEventListener('scroll', function () {
-    if (!ticking) {
-      requestAnimationFrame(updateNav);
-      ticking = true;
-    }
-  }, { passive: true });
-})();
-
-
-/* ══════════════════════════════════════════════════════════
-   4. SMOOTH SCROLL para links internos (fallback navegadores
-      que no soportan scroll-behavior: smooth nativo)
-   ══════════════════════════════════════════════════════════ */
-
-(function initSmoothScroll() {
-  const anchors = document.querySelectorAll('a[href^="#"]');
-
-  anchors.forEach(function (anchor) {
-    anchor.addEventListener('click', function (e) {
-      const href   = anchor.getAttribute('href');
-      if (href === '#') return;
-
-      const target = document.querySelector(href);
-      if (!target) return;
-
-      e.preventDefault();
-
-      const navHeight = document.getElementById('navbar')
-        ? document.getElementById('navbar').offsetHeight
-        : 0;
-
-      const targetTop = target.getBoundingClientRect().top + window.scrollY - navHeight;
-
-      window.scrollTo({ top: targetTop, behavior: 'smooth' });
+  galeriaItems.forEach(item => {
+    item.style.cursor = 'zoom-in';
+    item.addEventListener('click', () => {
+      if (lightbox) return;
+      const placeholder = item.querySelector('.galeria-placeholder');
+      const label = placeholder ? placeholder.querySelector('span').textContent : '';
+      const bg    = getComputedStyle(placeholder).background;
+      createLightbox(`
+        <div style="
+          width: 70vw; height: 60vh;
+          background: ${bg};
+          display: flex; align-items: flex-end;
+          padding: 2rem;
+          font-family: 'Geist', sans-serif;
+          font-size: 0.8rem;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.5);
+        ">${label}</div>
+      `);
     });
   });
-})();
+
+
+  // ─── CURSOR ACCENT (desktop only) ───────────────────────────
+  if (window.matchMedia('(pointer: fine)').matches) {
+    const cursor = document.createElement('div');
+    cursor.style.cssText = `
+      position: fixed; top: 0; left: 0;
+      width: 8px; height: 8px;
+      background: #E8430A;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.15s ease, width 0.25s ease, height 0.25s ease;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: multiply;
+    `;
+    document.body.appendChild(cursor);
+
+    let cx = 0, cy = 0;
+    document.addEventListener('mousemove', e => {
+      cx = e.clientX; cy = e.clientY;
+      cursor.style.left = cx + 'px';
+      cursor.style.top  = cy + 'px';
+    }, { passive: true });
+
+    // Expand on interactive elements
+    const interactives = document.querySelectorAll('a, button, .accordion-header, .galeria-item, .modelo-card');
+    interactives.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.width  = '24px';
+        cursor.style.height = '24px';
+        cursor.style.opacity = '0.5';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.width  = '8px';
+        cursor.style.height = '8px';
+        cursor.style.opacity = '1';
+      });
+    });
+  }
+
+});

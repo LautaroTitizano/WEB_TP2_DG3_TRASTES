@@ -3,819 +3,489 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TRASTE — Luthería Artesanal</title>
+  <title>Trastes — Luthería de Autor</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,400&display=swap"
-    rel="stylesheet"
-  />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- ══════════════════════════════════════════
-       NAV
-  ══════════════════════════════════════════ -->
-  <nav id="navbar">
-    <a href="#hero" class="nav-logo">TR<span>A</span>STE</a>
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="#" class="nav-logo">TRASTES</a>
     <ul class="nav-links">
       <li><a href="#metodo">Método</a></li>
       <li><a href="#proceso">Proceso</a></li>
       <li><a href="#modelos">Modelos</a></li>
-      <li><a href="#piezas">Luthería</a></li>
       <li><a href="#nosotros">Nosotros</a></li>
-      <li><a href="#testimonios">Voces</a></li>
     </ul>
-    <a href="#contacto" class="btn-nav">Encargá el tuyo</a>
+    <a href="#contacto" class="btn-nav">Encargá tu guitarra →</a>
   </nav>
 
-  <!-- ══════════════════════════════════════════
-       01 · HERO
-  ══════════════════════════════════════════ -->
-  <section id="hero" class="hero bp-grid">
-
-    <div class="hero__left">
-      <span class="bp-corner tl"></span>
-      <p class="eyebrow">Luthería Artesanal · Buenos Aires · Desde 2012</p>
-
-      <h1 class="hero__title">
-        Cada<br>
-        <em class="accent">veta</em><br>
-        narra una<br>
-        historia
+  <!-- 01 HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-bg-label">01</div>
+    <div class="hero-inner">
+      <div class="hero-tag">Luthería de autor · Buenos Aires</div>
+      <h1 class="hero-title">
+        Cada<br/>
+        <span class="hero-title--accent">instrumento</span><br/>
+        es irrepetible.
       </h1>
-
-      <p class="hero__desc">
-        En Traste no fabricamos guitarras. Las construimos desde la madera
-        hasta el último traste, a mano, con meses de trabajo y la convicción
-        de que ningún instrumento verdadero puede ser idéntico a otro.
-      </p>
-
-      <div class="hero__actions">
-        <a href="#contacto" class="btn-primary">Lorem ipsum dolor</a>
-        <a href="#metodo" class="btn-ghost">Conocé el método</a>
-      </div>
-      <span class="bp-corner bl"></span>
-    </div>
-
-    <div class="hero__right">
-      <div class="hero__canvas">
-        <!-- Blueprint guitar SVG -->
-        <svg class="guitar-blueprint" viewBox="0 0 280 600" fill="none"
-          xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <!-- Headstock -->
-          <rect x="110" y="15" width="60" height="30" rx="3"
-            stroke="#FDFCF8" stroke-width="1.5" fill="rgba(225,93,27,0.05)"/>
-          <!-- Tuning pegs -->
-          <circle cx="104" cy="22" r="5" stroke="#E15D1B" stroke-width="1.2" fill="rgba(225,93,27,0.1)"/>
-          <circle cx="104" cy="36" r="5" stroke="#E15D1B" stroke-width="1.2" fill="rgba(225,93,27,0.1)"/>
-          <circle cx="176" cy="22" r="5" stroke="#E15D1B" stroke-width="1.2" fill="rgba(225,93,27,0.1)"/>
-          <circle cx="176" cy="36" r="5" stroke="#E15D1B" stroke-width="1.2" fill="rgba(225,93,27,0.1)"/>
-          <!-- Nut -->
-          <rect x="107" y="46" width="66" height="5" fill="rgba(253,252,248,0.5)" rx="1"/>
-          <!-- Neck -->
-          <path d="M112 51 L108 200 L172 200 L168 51 Z"
-            stroke="#FDFCF8" stroke-width="1.2" fill="rgba(44,44,44,0.4)"/>
-          <!-- Frets -->
-          <line x1="109" y1="75"  x2="171" y2="75"  stroke="#FDFCF8" stroke-width="1" opacity="0.5"/>
-          <line x1="109" y1="95"  x2="171" y2="95"  stroke="#FDFCF8" stroke-width="1" opacity="0.45"/>
-          <line x1="109" y1="112" x2="171" y2="112" stroke="#FDFCF8" stroke-width="1" opacity="0.4"/>
-          <line x1="109" y1="127" x2="171" y2="127" stroke="#FDFCF8" stroke-width="1" opacity="0.35"/>
-          <line x1="109" y1="140" x2="171" y2="140" stroke="#FDFCF8" stroke-width="1" opacity="0.3"/>
-          <line x1="109" y1="152" x2="171" y2="152" stroke="#FDFCF8" stroke-width="1" opacity="0.25"/>
-          <line x1="109" y1="163" x2="171" y2="163" stroke="#FDFCF8" stroke-width="1" opacity="0.2"/>
-          <line x1="108" y1="173" x2="172" y2="173" stroke="#FDFCF8" stroke-width="1" opacity="0.18"/>
-          <line x1="108" y1="182" x2="172" y2="182" stroke="#FDFCF8" stroke-width="1" opacity="0.15"/>
-          <!-- Body -->
-          <path d="M108 200 Q55 215 40 265 Q22 320 38 375
-                   Q60 440 140 455 Q220 440 242 375
-                   Q258 320 240 265 Q225 215 172 200 Z"
-            stroke="#FDFCF8" stroke-width="1.5" fill="rgba(44,44,44,0.6)"/>
-          <!-- Wood grain -->
-          <path d="M80 280 Q140 275 200 280"  stroke="rgba(253,252,248,0.07)" stroke-width="8"  fill="none"/>
-          <path d="M68 310 Q140 305 212 310"  stroke="rgba(253,252,248,0.05)" stroke-width="10" fill="none"/>
-          <path d="M65 340 Q140 335 215 340"  stroke="rgba(253,252,248,0.04)" stroke-width="8"  fill="none"/>
-          <!-- Sound hole -->
-          <circle cx="140" cy="330" r="46" stroke="#E15D1B" stroke-width="1.2"
-            fill="rgba(0,0,0,0.6)" stroke-dasharray="8 5" opacity="0.8"/>
-          <circle cx="140" cy="330" r="36" stroke="rgba(225,93,27,0.3)" stroke-width="0.8" fill="none"/>
-          <!-- Bridge -->
-          <rect x="114" y="395" width="52" height="12" rx="2"
-            stroke="#E15D1B" stroke-width="1.2" fill="rgba(225,93,27,0.2)"/>
-          <line x1="115" y1="407" x2="163" y2="407" stroke="#E15D1B" stroke-width="1.5" opacity="0.6"/>
-          <!-- Strings -->
-          <line x1="124" y1="51" x2="124" y2="405" stroke="#FDFCF8" stroke-width="0.4" opacity="0.3"/>
-          <line x1="132" y1="51" x2="132" y2="405" stroke="#FDFCF8" stroke-width="0.4" opacity="0.3"/>
-          <line x1="140" y1="51" x2="140" y2="405" stroke="#FDFCF8" stroke-width="0.5" opacity="0.35"/>
-          <line x1="148" y1="51" x2="148" y2="405" stroke="#FDFCF8" stroke-width="0.4" opacity="0.3"/>
-          <line x1="156" y1="51" x2="156" y2="405" stroke="#FDFCF8" stroke-width="0.4" opacity="0.3"/>
-          <line x1="164" y1="51" x2="164" y2="405" stroke="#FDFCF8" stroke-width="0.4" opacity="0.3"/>
-          <!-- Annotation lines -->
-          <line x1="100" y1="29" x2="58" y2="29" stroke="#E15D1B" stroke-width="0.7" opacity="0.6" stroke-dasharray="3 2"/>
-          <text x="12" y="33" fill="#E15D1B" font-size="8" font-family="Montserrat" font-weight="700" opacity="0.7">CLAVIJAS</text>
-          <line x1="107" y1="48" x2="58" y2="58" stroke="#E15D1B" stroke-width="0.7" opacity="0.6" stroke-dasharray="3 2"/>
-          <text x="12" y="62" fill="#E15D1B" font-size="8" font-family="Montserrat" font-weight="700" opacity="0.7">CEJUELA</text>
-          <line x1="108" y1="130" x2="58" y2="130" stroke="#E15D1B" stroke-width="0.7" opacity="0.6" stroke-dasharray="3 2"/>
-          <text x="12" y="134" fill="#E15D1B" font-size="8" font-family="Montserrat" font-weight="700" opacity="0.7">MÁSTIL</text>
-          <line x1="186" y1="330" x2="228" y2="330" stroke="#E15D1B" stroke-width="0.7" opacity="0.6" stroke-dasharray="3 2"/>
-          <text x="231" y="334" fill="#E15D1B" font-size="8" font-family="Montserrat" font-weight="700" opacity="0.7">BOCA</text>
-          <line x1="240" y1="265" x2="228" y2="265" stroke="#E15D1B" stroke-width="0.7" opacity="0.6" stroke-dasharray="3 2"/>
-          <text x="231" y="269" fill="#E15D1B" font-size="8" font-family="Montserrat" font-weight="700" opacity="0.7">TAPA</text>
-          <line x1="168" y1="401" x2="228" y2="401" stroke="#E15D1B" stroke-width="0.7" opacity="0.6" stroke-dasharray="3 2"/>
-          <text x="231" y="405" fill="#E15D1B" font-size="8" font-family="Montserrat" font-weight="700" opacity="0.7">PUENTE</text>
-        </svg>
-        <span class="bp-corner tr"></span>
-        <span class="bp-corner br"></span>
-      </div>
-
-      <!-- Stats bar -->
-      <div class="hero__stats">
-        <div class="stat">
-          <span class="stat__num">12+</span>
-          <span class="stat__label">Años de oficio</span>
-        </div>
-        <div class="stat">
-          <span class="stat__num">340</span>
-          <span class="stat__label">Instrumentos construidos</span>
-        </div>
-        <div class="stat">
-          <span class="stat__num">6–9</span>
-          <span class="stat__label">Meses por encargo</span>
+      <div class="hero-bottom">
+        <p class="hero-desc">
+          Construimos guitarras a medida desde el bloque de madera en bruto hasta la vibración de la primera nota. Sin atajos. Sin producción en serie.
+        </p>
+        <div class="hero-ctas">
+          <a href="#modelos" class="btn-primary">Ver modelos de referencia</a>
+          <a href="#proceso" class="btn-ghost">Cómo trabajamos</a>
         </div>
       </div>
     </div>
-
-  </section>
-
-  <!-- ══════════════════════════════════════════
-       MARQUEE
-  ══════════════════════════════════════════ -->
-  <div class="marquee-track" aria-hidden="true">
-    <div class="marquee__inner">
-      <span class="marquee__item">Luthería Artesanal <i class="marquee__dot"></i></span>
-      <span class="marquee__item">Madera Seleccionada <i class="marquee__dot"></i></span>
-      <span class="marquee__item">Instrumento a Medida <i class="marquee__dot"></i></span>
-      <span class="marquee__item">Tallado a Mano <i class="marquee__dot"></i></span>
-      <span class="marquee__item">Buenos Aires <i class="marquee__dot"></i></span>
-      <span class="marquee__item">Sonido Único <i class="marquee__dot"></i></span>
-      <!-- duplicate for seamless loop -->
-      <span class="marquee__item">Luthería Artesanal <i class="marquee__dot"></i></span>
-      <span class="marquee__item">Madera Seleccionada <i class="marquee__dot"></i></span>
-      <span class="marquee__item">Instrumento a Medida <i class="marquee__dot"></i></span>
-      <span class="marquee__item">Tallado a Mano <i class="marquee__dot"></i></span>
-      <span class="marquee__item">Buenos Aires <i class="marquee__dot"></i></span>
-      <span class="marquee__item">Sonido Único <i class="marquee__dot"></i></span>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════════
-       02 · MÉTODO DE TRABAJO
-  ══════════════════════════════════════════ -->
-  <section id="metodo" class="section">
-    <div class="section__header fade-up">
-      <div>
-        <p class="coord">02 — Método de trabajo</p>
-        <h2 class="section__title">El arte<br><span class="accent">detrás</span><br>del sonido</h2>
-      </div>
-      <p class="section__intro">
-        Cada instrumento sigue una filosofía clara: no hay atajos entre
-        la madera bruta y el instrumento terminado. Conocé los cuatro pilares
-        de nuestro taller.
-      </p>
-    </div>
-
-    <div class="accordion" role="list">
-
-      <div class="accordion__item open" role="listitem">
-        <button class="accordion__trigger" aria-expanded="true">
-          <span class="acc__num">01</span>
-          <div class="acc__title-wrap">
-            <span class="acc__eyebrow">Fundamento</span>
-            <span class="acc__title">Selección de madera</span>
-          </div>
-          <span class="acc__icon" aria-hidden="true">+</span>
-        </button>
-        <div class="accordion__body">
-          <div class="accordion__content">
-            <div></div><!-- spacer -->
-            <p class="acc__text">
-              Visitamos secaderos y aserraderos para elegir cada tabla en persona.
-              Analizamos la veta, el peso y la resonancia natural de la pieza.
-              Buscamos maderas con coeficientes de contracción estables y anillos
-              de crecimiento regulares que predicen su comportamiento acústico
-              bajo tensión constante. Una madera que no cante sola nunca va a
-              cantar con cuerdas.
-            </p>
-            <div class="acc__detail">
-              <p class="acc__detail-title">Maderas disponibles</p>
-              <p class="acc__detail-text">
-                Cedro paraguayo · Pino oregón · Rosewood · Ébano africano
-                · Caoba neotropical · Palo santo de la India · Abeto lutz
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion__item" role="listitem">
-        <button class="accordion__trigger" aria-expanded="false">
-          <span class="acc__num">02</span>
-          <div class="acc__title-wrap">
-            <span class="acc__eyebrow">Estructura</span>
-            <span class="acc__title">Diseño ergonómico</span>
-          </div>
-          <span class="acc__icon" aria-hidden="true">+</span>
-        </button>
-        <div class="accordion__body">
-          <div class="accordion__content">
-            <div></div>
-            <p class="acc__text">
-              La forma de la guitarra no es decoración: es física aplicada.
-              Personalizamos la geometría del cuerpo —biseles de apoyo, contornos
-              anatómicos, escala y tensión de cuerdas— y tallamos el perfil del
-              mástil a partir de las mediciones reales de la mano del intérprete.
-              Cada milímetro de curvatura tiene un propósito acústico.
-            </p>
-            <div class="acc__detail">
-              <p class="acc__detail-title">Variables de diseño</p>
-              <p class="acc__detail-text">
-                Profundidad de caja · Escala (648–655 mm) · Ancho de boca
-                · Curvatura de tapa · Perfil de mástil · Radio de diapasón
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion__item" role="listitem">
-        <button class="accordion__trigger" aria-expanded="false">
-          <span class="acc__num">03</span>
-          <div class="acc__title-wrap">
-            <span class="acc__eyebrow">Precisión</span>
-            <span class="acc__title">Construcción artesanal</span>
-          </div>
-          <span class="acc__icon" aria-hidden="true">+</span>
-        </button>
-        <div class="accordion__body">
-          <div class="accordion__content">
-            <div></div>
-            <p class="acc__text">
-              Las herramientas eléctricas hacen el desbaste; las manos terminan
-              el trabajo. El tallado manual de las bóvedas armónicas, la afinación
-              individual de las varetas de refuerzo y el encolado con adhesivos
-              orgánicos de alta cristalización son procesos donde la experiencia
-              de doce años marca la diferencia entre un instrumento correcto y uno
-              memorable.
-            </p>
-            <div class="acc__detail">
-              <p class="acc__detail-title">Tiempo estimado</p>
-              <p class="acc__detail-text">
-                6 a 9 meses desde la selección de madera hasta la afinación final
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion__item" role="listitem">
-        <button class="accordion__trigger" aria-expanded="false">
-          <span class="acc__num">04</span>
-          <div class="acc__title-wrap">
-            <span class="acc__eyebrow">Identidad</span>
-            <span class="acc__title">Acabado y registro</span>
-          </div>
-          <span class="acc__icon" aria-hidden="true">+</span>
-        </button>
-        <div class="accordion__body">
-          <div class="accordion__content">
-            <div></div>
-            <p class="acc__text">
-              Aplicamos capas microscópicas de barniz orgánico o lacas de
-              nitrocelulosa que protegen sin sofocar la resonancia natural.
-              Cada instrumento recibe un número de serie grabado a fuego,
-              su certificado de luthería, el registro técnico de respuesta
-              de frecuencia y un archivo fotográfico completo del proceso.
-            </p>
-            <div class="acc__detail">
-              <p class="acc__detail-title">Incluye</p>
-              <p class="acc__detail-text">
-                Número de serie · Certificado firmado · Registro fotográfico
-                · Análisis de frecuencia · Estuche a medida
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
+    <div class="hero-scroll-line"></div>
+    <!-- Logos / badges band -->
+    <div class="hero-band">
+      <span>Selección de maderas exóticas</span>
+      <span class="sep">·</span>
+      <span>Construcción artesanal</span>
+      <span class="sep">·</span>
+      <span>Diseño ergonómico a medida</span>
+      <span class="sep">·</span>
+      <span>Acabado y registro tonal</span>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════
-       03 · PROCESO DE ENCARGO
-  ══════════════════════════════════════════ -->
-  <section id="proceso" class="section section--dark bp-grid">
-    <div class="section__header fade-up">
-      <div>
-        <p class="coord">03 — Proceso de encargo</p>
-        <h2 class="section__title">De la idea<br>al <span class="accent">instrumento</span></h2>
-      </div>
-      <p class="section__intro">
-        Encargar una guitarra en Traste es claro y sin letra chica.
-        Cinco pasos que te acompañan desde la primera conversación
-        hasta que el instrumento llega a tus manos.
-      </p>
+  <!-- 02 MÉTODO DE TRABAJO -->
+  <section class="metodo" id="metodo">
+    <div class="section-eyebrow">
+      <span class="section-num">02</span>
+      <span class="section-label">Método de trabajo</span>
     </div>
-
-    <div class="stepper fade-up">
-      <div class="step">
-        <div class="step__dot">01</div>
-        <h3 class="step__title">Consulta inicial</h3>
-        <p class="step__text">
-          Describís las anomalías o el sonido que buscás, tu nivel de
-          experiencia y tus preferencias estéticas. En persona o por mensaje.
-        </p>
-        <a href="#contacto" class="step__link">Escribinos →</a>
-      </div>
-      <div class="step">
-        <div class="step__dot">02</div>
-        <h3 class="step__title">Diagnóstico y presupuesto</h3>
-        <p class="step__text">
-          Si es restauración: evaluación bajo control de humedad con luz UV
-          y medición micrométrica. Si es construcción: informe técnico con
-          opciones de maderas y tiempos.
-        </p>
-      </div>
-      <div class="step">
-        <div class="step__dot">03</div>
-        <h3 class="step__title">Diseño y selección</h3>
-        <p class="step__text">
-          Elegimos juntos las maderas, la escala, el perfil del mástil
-          y cada variable que define el carácter acústico del instrumento.
-        </p>
-      </div>
-      <div class="step">
-        <div class="step__dot">04</div>
-        <h3 class="step__title">Construcción</h3>
-        <p class="step__text">
-          El taller trabaja. Recibís actualizaciones fotográficas en cada
-          etapa clave: encolado, varetaje, acabado, trastes.
-        </p>
-      </div>
-      <div class="step">
-        <div class="step__dot">05</div>
-        <h3 class="step__title">Entrega y setup</h3>
-        <p class="step__text">
-          Calibramos la guitarra a tu estilo de juego y calibre de cuerdas
-          preferido antes de la entrega. La recibís lista para tocar.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════
-       04 · MODELOS DE REFERENCIA
-  ══════════════════════════════════════════ -->
-  <section id="modelos" class="section">
-    <div class="section__header fade-up">
-      <div>
-        <p class="coord">04 — Modelos de referencia</p>
-        <h2 class="section__title">Puntos de<br><span class="accent">partida</span></h2>
-      </div>
-      <p class="section__intro">
-        Cada encargo es único, pero estos modelos son puntos de partida:
-        bases conceptuales con filosofía acústica propia que podés tomar
-        como inspiración o como punto de inicio para tu instrumento.
-      </p>
-    </div>
-
-    <div class="modelos-grid">
-
-      <article class="modelo-card fade-up">
-        <div class="modelo-card__img modelo-card__img--1">
-          <div class="modelo-card__overlay">
-            <span class="modelo-card__tag">Clásica · Referencia A</span>
-            <span class="modelo-card__name-overlay">La Criolla</span>
-          </div>
-        </div>
-        <div class="modelo-card__info">
-          <h3 class="modelo-card__name">La Criolla</h3>
-          <ul class="modelo-card__specs">
-            <li><span>Tapa</span> Cedro colorado seleccionado</li>
-            <li><span>Caja</span> Palo santo de la India</li>
-            <li><span>Diapasón</span> Ébano africano</li>
-            <li><span>Escala</span> 650 mm · Boca 96 mm</li>
-          </ul>
-          <p class="modelo-card__desc">
-            Sonido criollo puro, proyección clara de tonos fundamentales
-            y medios cálidos. La referencia del taller para la guitarra
-            clásica tradicional refinada.
-          </p>
-          <a href="#contacto" class="modelo-card__link">Encargá una variante →</a>
-        </div>
-      </article>
-
-      <article class="modelo-card fade-up">
-        <div class="modelo-card__img modelo-card__img--2">
-          <div class="modelo-card__overlay">
-            <span class="modelo-card__tag">Contemporánea · Referencia B</span>
-            <span class="modelo-card__name-overlay">La Verde</span>
-          </div>
-        </div>
-        <div class="modelo-card__info">
-          <h3 class="modelo-card__name">La Verde</h3>
-          <ul class="modelo-card__specs">
-            <li><span>Tapa</span> Abeto lutz de grano fino</li>
-            <li><span>Caja</span> Caoba neotropical</li>
-            <li><span>Escala</span> 648 mm · Cuerpo estrechado</li>
-            <li><span>Herrajes</span> Satinados, unión optimizada</li>
-          </ul>
-          <p class="modelo-card__desc">
-            Respuesta dinámica rápida, graves enfocados sin saturación.
-            Ideal para grabaciones de estudio que exigen claridad en todo
-            el espectro de frecuencias.
-          </p>
-          <a href="#contacto" class="modelo-card__link">Encargá una variante →</a>
-        </div>
-      </article>
-
-      <article class="modelo-card fade-up">
-        <div class="modelo-card__img modelo-card__img--3">
-          <div class="modelo-card__overlay">
-            <span class="modelo-card__tag">Especial · Referencia C</span>
-            <span class="modelo-card__name-overlay">La Oscura</span>
-          </div>
-        </div>
-        <div class="modelo-card__info">
-          <h3 class="modelo-card__name">La Oscura</h3>
-          <ul class="modelo-card__specs">
-            <li><span>Tapa</span> Cedro de Alaska, grano cerrado</li>
-            <li><span>Caja</span> Nogal con veteado dramático</li>
-            <li><span>Escala</span> 655 mm · Trastes inoxidable</li>
-            <li><span>Diapasón</span> Ébano curvo</li>
-          </ul>
-          <p class="modelo-card__desc">
-            Graves monumentales, agudos dulces y reverberantes ricos en
-            armónicos complejos. Para el solista que busca un sonido
-            sin concesiones en afinaciones alternativas.
-          </p>
-          <a href="#contacto" class="modelo-card__link">Encargá una variante →</a>
-        </div>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════
-       05 · CADA PIEZA ES IMPORTANTE
-  ══════════════════════════════════════════ -->
-  <section id="piezas" class="section section--dark bp-grid">
-    <div class="section__header fade-up">
-      <div>
-        <p class="coord">05 — Anatomía del instrumento</p>
-        <h2 class="section__title">Cada pieza<br>es <span class="accent">decisiva</span></h2>
-      </div>
-      <p class="section__intro">
-        Una guitarra criolla es un sistema acústico donde ningún elemento
-        es accesorio. Conocer sus partes es entender por qué cada decisión
-        del luthier define el sonido final.
-      </p>
-    </div>
-
-    <div class="piezas__layout fade-up">
-
-      <!-- Diagram -->
-      <div class="piezas__diagram">
-        <svg class="guitar-anatomy" viewBox="0 0 280 600" fill="none"
-          xmlns="http://www.w3.org/2000/svg" aria-label="Diagrama anatómico de guitarra criolla">
-          <rect x="110" y="15" width="60" height="30" rx="3"
-            stroke="#FDFCF8" stroke-width="1.5" fill="rgba(225,93,27,0.05)"/>
-          <circle cx="104" cy="22" r="5" stroke="#E15D1B" stroke-width="1.2" fill="rgba(225,93,27,0.15)"/>
-          <circle cx="104" cy="36" r="5" stroke="#E15D1B" stroke-width="1.2" fill="rgba(225,93,27,0.15)"/>
-          <circle cx="176" cy="22" r="5" stroke="#E15D1B" stroke-width="1.2" fill="rgba(225,93,27,0.15)"/>
-          <circle cx="176" cy="36" r="5" stroke="#E15D1B" stroke-width="1.2" fill="rgba(225,93,27,0.15)"/>
-          <rect x="107" y="46" width="66" height="5" fill="rgba(253,252,248,0.6)" rx="1"/>
-          <path d="M112 51 L108 200 L172 200 L168 51 Z"
-            stroke="#FDFCF8" stroke-width="1.2" fill="rgba(44,44,44,0.5)"/>
-          <line x1="109" y1="75"  x2="171" y2="75"  stroke="#FDFCF8" stroke-width="1.2" opacity="0.5"/>
-          <line x1="109" y1="95"  x2="171" y2="95"  stroke="#FDFCF8" stroke-width="1"   opacity="0.45"/>
-          <line x1="109" y1="112" x2="171" y2="112" stroke="#FDFCF8" stroke-width="1"   opacity="0.4"/>
-          <line x1="109" y1="127" x2="171" y2="127" stroke="#FDFCF8" stroke-width="1"   opacity="0.35"/>
-          <line x1="109" y1="140" x2="171" y2="140" stroke="#FDFCF8" stroke-width="1"   opacity="0.3"/>
-          <line x1="109" y1="152" x2="171" y2="152" stroke="#FDFCF8" stroke-width="0.8" opacity="0.25"/>
-          <line x1="109" y1="163" x2="171" y2="163" stroke="#FDFCF8" stroke-width="0.8" opacity="0.2"/>
-          <line x1="108" y1="173" x2="172" y2="173" stroke="#FDFCF8" stroke-width="0.8" opacity="0.18"/>
-          <path d="M108 200 Q55 215 40 265 Q22 320 38 375
-                   Q60 440 140 455 Q220 440 242 375
-                   Q258 320 240 265 Q225 215 172 200 Z"
-            stroke="#FDFCF8" stroke-width="1.5" fill="rgba(44,44,44,0.65)"/>
-          <path d="M80 280 Q140 275 200 280"  stroke="rgba(253,252,248,0.07)" stroke-width="10" fill="none"/>
-          <path d="M68 310 Q140 305 212 310"  stroke="rgba(253,252,248,0.05)" stroke-width="12" fill="none"/>
-          <path d="M65 340 Q140 335 215 340"  stroke="rgba(253,252,248,0.04)" stroke-width="9"  fill="none"/>
-          <circle cx="140" cy="330" r="46" stroke="#E15D1B" stroke-width="1.2"
-            fill="rgba(0,0,0,0.65)" stroke-dasharray="8 5"/>
-          <circle cx="140" cy="330" r="36" stroke="rgba(225,93,27,0.35)" stroke-width="0.8" fill="none"/>
-          <rect x="114" y="395" width="52" height="12" rx="2"
-            stroke="#E15D1B" stroke-width="1.2" fill="rgba(225,93,27,0.25)"/>
-          <line x1="115" y1="407" x2="163" y2="407" stroke="#E15D1B" stroke-width="1.5" opacity="0.7"/>
-          <line x1="124" y1="51" x2="124" y2="405" stroke="#FDFCF8" stroke-width="0.4" opacity="0.3"/>
-          <line x1="132" y1="51" x2="132" y2="405" stroke="#FDFCF8" stroke-width="0.4" opacity="0.3"/>
-          <line x1="140" y1="51" x2="140" y2="405" stroke="#FDFCF8" stroke-width="0.5" opacity="0.35"/>
-          <line x1="148" y1="51" x2="148" y2="405" stroke="#FDFCF8" stroke-width="0.4" opacity="0.3"/>
-          <line x1="156" y1="51" x2="156" y2="405" stroke="#FDFCF8" stroke-width="0.4" opacity="0.3"/>
-          <line x1="164" y1="51" x2="164" y2="405" stroke="#FDFCF8" stroke-width="0.4" opacity="0.3"/>
-          <!-- Numbered labels -->
-          <circle cx="70" cy="29" r="8" fill="#E15D1B" opacity="0.9"/>
-          <text x="70" y="33" fill="#1A1A1A" font-size="8" font-family="Montserrat" font-weight="900" text-anchor="middle">1</text>
-          <line x1="78" y1="29" x2="99" y2="29" stroke="#E15D1B" stroke-width="0.8" opacity="0.7"/>
-          <circle cx="70" cy="48" r="8" fill="#E15D1B" opacity="0.9"/>
-          <text x="70" y="52" fill="#1A1A1A" font-size="8" font-family="Montserrat" font-weight="900" text-anchor="middle">2</text>
-          <line x1="78" y1="48" x2="106" y2="48" stroke="#E15D1B" stroke-width="0.8" opacity="0.7"/>
-          <circle cx="70" cy="130" r="8" fill="#E15D1B" opacity="0.9"/>
-          <text x="70" y="134" fill="#1A1A1A" font-size="8" font-family="Montserrat" font-weight="900" text-anchor="middle">3</text>
-          <line x1="78" y1="130" x2="107" y2="130" stroke="#E15D1B" stroke-width="0.8" opacity="0.7"/>
-          <circle cx="210" cy="330" r="8" fill="#E15D1B" opacity="0.9"/>
-          <text x="210" y="334" fill="#1A1A1A" font-size="8" font-family="Montserrat" font-weight="900" text-anchor="middle">4</text>
-          <line x1="202" y1="330" x2="187" y2="330" stroke="#E15D1B" stroke-width="0.8" opacity="0.7"/>
-          <circle cx="210" cy="265" r="8" fill="#E15D1B" opacity="0.9"/>
-          <text x="210" y="269" fill="#1A1A1A" font-size="8" font-family="Montserrat" font-weight="900" text-anchor="middle">5</text>
-          <line x1="202" y1="265" x2="185" y2="265" stroke="#E15D1B" stroke-width="0.8" opacity="0.7"/>
-          <circle cx="210" cy="401" r="8" fill="#E15D1B" opacity="0.9"/>
-          <text x="210" y="405" fill="#1A1A1A" font-size="8" font-family="Montserrat" font-weight="900" text-anchor="middle">6</text>
-          <line x1="202" y1="401" x2="168" y2="401" stroke="#E15D1B" stroke-width="0.8" opacity="0.7"/>
-        </svg>
-      </div>
-
-      <!-- Parts list -->
-      <div class="piezas__list">
-        <div class="pieza-item">
-          <span class="pieza__num">1</span>
-          <div>
-            <h3 class="pieza__name">Clavijas de afinación</h3>
-            <p class="pieza__desc">
-              Las clavijas determinan la estabilidad tonal. Usamos clavijas de
-              ebonita o hueso bovino tratado, que transfieren mejor la vibración
-              al mástil que las opciones plásticas industriales estándar.
-            </p>
-          </div>
-        </div>
-        <div class="pieza-item">
-          <span class="pieza__num">2</span>
-          <div>
-            <h3 class="pieza__name">Cejuela (Nut)</h3>
-            <p class="pieza__desc">
-              Regula la acción en el primer traste y define la afinación en toda
-              la escala. La tallamos a mano para cada instrumento, calibrando
-              la altura cuerda a cuerda.
-            </p>
-          </div>
-        </div>
-        <div class="pieza-item">
-          <span class="pieza__num">3</span>
-          <div>
-            <h3 class="pieza__name">Mástil y diapasón</h3>
-            <p class="pieza__desc">
-              El perfil del mástil es la firma del luthier. Cedro paraguayo o
-              caoba con diapasón de ébano o palo santo. Anchura y radio de
-              curvatura adaptados a la anatomía del músico.
-            </p>
-          </div>
-        </div>
-        <div class="pieza-item">
-          <span class="pieza__num">4</span>
-          <div>
-            <h3 class="pieza__name">Boca (Sound hole)</h3>
-            <p class="pieza__desc">
-              Diámetro, posición y la roseta de mosaico artesanal no son
-              solo estética: son física acústica aplicada que define la
-              proyección y la calidez del instrumento.
-            </p>
-          </div>
-        </div>
-        <div class="pieza-item">
-          <span class="pieza__num">5</span>
-          <div>
-            <h3 class="pieza__name">Tapa armónica</h3>
-            <p class="pieza__desc">
-              El corazón acústico de la guitarra criolla. Un cedro de grano
-              fino amplifica con calidez; un abeto proyecta con brillo. La
-              elección de la tapa es la decisión más importante del instrumento.
-            </p>
-          </div>
-        </div>
-        <div class="pieza-item">
-          <span class="pieza__num">6</span>
-          <div>
-            <h3 class="pieza__name">Puente y selleta</h3>
-            <p class="pieza__desc">
-              Transfiere la vibración de las cuerdas a la tapa. La selleta
-              de hueso natural densamente compactado supera las pérdidas
-              acústicas de los materiales plásticos en sustain y ataque.
-            </p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════
-       06 · SOBRE NOSOTROS
-  ══════════════════════════════════════════ -->
-  <section id="nosotros" class="nosotros">
-    <div class="nosotros__img">
-      <div class="nosotros__img-overlay"></div>
-      <p class="nosotros__bg-text">TRASTE<br>2012–<br>2026</p>
-    </div>
-    <div class="nosotros__content">
-      <p class="coord">06 — Sobre nosotros</p>
-      <h2 class="nosotros__title">
-        Doce años<br>construyendo<br><span class="accent">con propósito</span>
+    <div class="metodo-header">
+      <h2 class="section-title">
+        MÉTODO<br/>DE TRABAJO
       </h2>
-      <p class="nosotros__text">
-        Traste nació en un taller de 18 m² en el barrio de La Boca.
-        Empezamos reparando guitarras rotas de estudiantes y terminamos
-        construyendo instrumentos para músicos de sesión que graban en
-        Buenos Aires, Montevideo y Madrid.
-      </p>
-      <p class="nosotros__text">
-        No crecimos para producir más. Crecimos para producir mejor.
-        Seguimos siendo dos luthiers, el mismo taller, y la misma obsesión
-        por el detalle que nos trajo hasta acá. Sin atajos, sin máquinas
-        que reemplacen lo que solo las manos saben hacer.
-      </p>
-      <a href="#contacto" class="btn-ghost nosotros__cta">Conocé el taller</a>
-      <div class="nosotros__facts">
-        <div class="fact">
-          <span class="fact__num">340+</span>
-          <span class="fact__label">Instrumentos entregados</span>
+      <p class="metodo-sub">Cada instrumento que construimos sigue una filosofía clara: no hay atajos entre la madera bruta y el instrumento terminado. Conocé los pilares de nuestro trabajo.</p>
+    </div>
+    <div class="metodo-accordion">
+      <div class="accordion-item active" data-index="0">
+        <div class="accordion-header">
+          <span class="accordion-num">01</span>
+          <span class="accordion-title">SELECCIÓN</span>
+          <span class="accordion-arrow">↓</span>
         </div>
-        <div class="fact">
-          <span class="fact__num">12</span>
-          <span class="fact__label">Años de oficio</span>
+        <div class="accordion-body">
+          <p>Abastecemos maderas exóticas analizando sus coeficientes de contracción y la regularidad de sus anillos de crecimiento anual. Cada tapa se aclimata en el taller durante meses antes de ser trabajada.</p>
+          <ul>
+            <li>Cedro colorado y abeto lutz para tapas armónicas</li>
+            <li>Palo santo, caoba y nogal para aros y fondos</li>
+            <li>Ébano africano y de Macassar para diapasones</li>
+            <li>Proceso de aclimatación bajo control de humedad</li>
+          </ul>
         </div>
-        <div class="fact">
-          <span class="fact__num">2</span>
-          <span class="fact__label">Luthiers, mismo taller</span>
+      </div>
+      <div class="accordion-item" data-index="1">
+        <div class="accordion-header">
+          <span class="accordion-num">02</span>
+          <span class="accordion-title">DISEÑO ERGONÓMICO</span>
+          <span class="accordion-arrow">↓</span>
+        </div>
+        <div class="accordion-body">
+          <p>El instrumento se adapta al cuerpo del músico, no al revés. Partimos de las medidas reales de la mano del intérprete para tallar el perfil del mástil.</p>
+          <ul>
+            <li>Perfil del mástil esculpido a partir de moldes de la mano</li>
+            <li>Geometría del cuerpo personalizada: biseles y contornos anatómicos</li>
+            <li>Escala y tensión de cuerdas a medida del músico</li>
+            <li>Ergonomía de apoyo para postura en estudio y escenario</li>
+          </ul>
+        </div>
+      </div>
+      <div class="accordion-item" data-index="2">
+        <div class="accordion-header">
+          <span class="accordion-num">03</span>
+          <span class="accordion-title">CONSTRUCCIÓN ARTESANAL</span>
+          <span class="accordion-arrow">↓</span>
+        </div>
+        <div class="accordion-body">
+          <p>Tallado manual de bóvedas armónicas, afinación acústica individual de varetas de refuerzo y encolado tradicional con adhesivos orgánicos de alta cristalización.</p>
+          <ul>
+            <li>Sin herramientas de producción rápida ni CNC</li>
+            <li>Bóvedas armónicas talladas y afinadas individualmente</li>
+            <li>Adhesivos orgánicos que favorecen la transferencia de vibración</li>
+            <li>Meses de dedicación exclusiva por instrumento</li>
+          </ul>
+        </div>
+      </div>
+      <div class="accordion-item" data-index="3">
+        <div class="accordion-header">
+          <span class="accordion-num">04</span>
+          <span class="accordion-title">ACABADO Y REGISTRO</span>
+          <span class="accordion-arrow">↓</span>
+        </div>
+        <div class="accordion-body">
+          <p>Capas microscópicas de barniz orgánico o lacas de nitrocelulosa que protegen el instrumento sin sofocar su resonancia natural. Cada pieza recibe un registro técnico de su firma tonal.</p>
+          <ul>
+            <li>Barniz orgánico o nitrocelulosa aplicado a mano</li>
+            <li>Sin lacas gruesas que anulen la resonancia</li>
+            <li>Registro de la respuesta en frecuencia del instrumento terminado</li>
+            <li>Certificado de autoría con la firma tonal única</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════
-       07 · TESTIMONIOS
-  ══════════════════════════════════════════ -->
-  <section id="testimonios" class="section section--dark">
-    <div class="section__header fade-up">
-      <div>
-        <p class="coord">07 — Voces del taller</p>
-        <h2 class="section__title">Lo que dicen<br>quienes <span class="accent">tocan</span></h2>
-      </div>
-      <p class="section__intro">
-        Los instrumentos no mienten. Tampoco los músicos que los tocan
-        cada noche en escena o en el estudio.
-      </p>
+  <!-- 03 PROCESO DE REPARACIÓN -->
+  <section class="proceso" id="proceso">
+    <div class="section-eyebrow light">
+      <span class="section-num">03</span>
+      <span class="section-label">Reparación y restauración</span>
     </div>
-
-    <div class="testimonios-grid">
-      <blockquote class="testi-card fade-up">
-        <p class="testi__quote-mark" aria-hidden="true">"</p>
-        <p class="testi__text">
-          Encargué mi primera guitarra a medida sin saber qué esperar.
-          Cuando la tuve en las manos entendí que nunca más iba a poder
-          tocar una de fabricación industrial. El balance dinámico permite
-          una expresividad que no encontré en ningún otro instrumento.
-        </p>
-        <footer class="testi__author">
-          <div class="testi__avatar" aria-hidden="true">MR</div>
-          <div>
-            <cite class="testi__name">Martín Rozas</cite>
-            <span class="testi__role">Músico de sesión · Buenos Aires</span>
-            <span class="testi__guitar">La Oscura — Cedro de Alaska / Nogal</span>
-          </div>
-        </footer>
-      </blockquote>
-
-      <blockquote class="testi-card fade-up">
-        <p class="testi__quote-mark" aria-hidden="true">"</p>
-        <p class="testi__text">
-          El proceso de diseño conjunto fue lo mejor. No me entregaron
-          una guitarra: me enseñaron a pensar en qué sonido quería.
-          Seis meses después recibí el instrumento que siempre imaginé
-          pero que nunca supe cómo pedir.
-        </p>
-        <footer class="testi__author">
-          <div class="testi__avatar" aria-hidden="true">LC</div>
-          <div>
-            <cite class="testi__name">Laura Cáceres</cite>
-            <span class="testi__role">Guitarrista clásica · Córdoba</span>
-            <span class="testi__guitar">La Criolla — Cedro / Palo Santo</span>
-          </div>
-        </footer>
-      </blockquote>
-
-      <blockquote class="testi-card fade-up">
-        <p class="testi__quote-mark" aria-hidden="true">"</p>
-        <p class="testi__text">
-          Tengo tres guitarras de marcas conocidas y la de Traste.
-          La de Traste es la única que toco. Cada vez que la saco
-          del estuche es como si fuera la primera vez.
-        </p>
-        <footer class="testi__author">
-          <div class="testi__avatar" aria-hidden="true">DF</div>
-          <div>
-            <cite class="testi__name">Diego Ferreyra</cite>
-            <span class="testi__role">Compositor · Rosario</span>
-            <span class="testi__guitar">La Verde — Abeto Lutz / Caoba</span>
-          </div>
-        </footer>
-      </blockquote>
+    <h2 class="section-title light">PROCESO DE<br/>REPARACIÓN</h2>
+    <div class="proceso-timeline">
+      <div class="timeline-line"></div>
+      <div class="timeline-steps">
+        <div class="timeline-step">
+          <div class="step-dot"></div>
+          <div class="step-icon">✏</div>
+          <div class="step-num">01</div>
+          <div class="step-name">SOLICITUD</div>
+          <div class="step-desc">Nos contás qué necesita tu instrumento.</div>
+        </div>
+        <div class="timeline-step">
+          <div class="step-dot"></div>
+          <div class="step-icon">◎</div>
+          <div class="step-num">02</div>
+          <div class="step-name">DIAGNÓSTICO</div>
+          <div class="step-desc">Evaluamos el estado y detectamos el problema.</div>
+        </div>
+        <div class="timeline-step">
+          <div class="step-dot"></div>
+          <div class="step-icon">☐</div>
+          <div class="step-num">03</div>
+          <div class="step-name">PRESUPUESTO</div>
+          <div class="step-desc">Te enviamos opciones y tiempos de trabajo.</div>
+        </div>
+        <div class="timeline-step">
+          <div class="step-dot"></div>
+          <div class="step-icon">⚙</div>
+          <div class="step-num">04</div>
+          <div class="step-name">INTERVENCIÓN</div>
+          <div class="step-desc">Trabajamos con precisión y cuidado artesanal.</div>
+        </div>
+        <div class="timeline-step">
+          <div class="step-dot"></div>
+          <div class="step-icon">✓</div>
+          <div class="step-num">05</div>
+          <div class="step-name">ENTREGA</div>
+          <div class="step-desc">Probamos, ajustamos y lo dejamos listo.</div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════
-       08 · GALERÍA
-  ══════════════════════════════════════════ -->
-  <section id="galeria" class="galeria">
-    <div class="galeria__header fade-up">
-      <div>
-        <p class="coord">08 — El taller</p>
-        <h2 class="section__title" style="font-size: clamp(26px,3vw,44px)">
-          Imágenes del<br><span class="accent">proceso</span>
+  <!-- 04 PUNTOS DE PARTIDA -->
+  <section class="modelos" id="modelos">
+    <div class="modelos-header">
+      <div class="modelos-header-left">
+        <div class="section-eyebrow">
+          <span class="section-num accent">04</span>
+          <span class="section-label">Modelos de referencia</span>
+        </div>
+        <h2 class="section-title modelos-title">
+          PUNTOS DE<br/><span class="accent-text">PARTIDA</span>
         </h2>
       </div>
-      <a href="#contacto" class="btn-ghost">Visitá el taller</a>
+      <div class="modelos-header-right">
+        <p>Cada encargo es único, pero estos son nuestros modelos de referencia: puntos de partida que podés tomar como base o como inspiración para tu instrumento a medida.</p>
+      </div>
     </div>
-    <div class="galeria__grid">
-      <div class="gal-item gal-item--tall">
-        <div class="gal-img gal-img--1"></div>
-        <span class="gal-label">Selección de madera · Cedro paraguayo</span>
+    <div class="modelos-grid">
+      <div class="modelo-card">
+        <div class="modelo-img modelo-img--a">
+          <div class="modelo-overlay">
+            <span class="modelo-tag">CLÁSICA · REFERENCIA A</span>
+          </div>
+        </div>
+        <div class="modelo-info">
+          <h3 class="modelo-name">LA CRIOLLA</h3>
+          <p class="modelo-desc">Tapa de cedro, aros y fondo de palo santo. Boca de 96 mm. Escala 650 mm. Referencia para el sonido criollo proyectado con claridad.</p>
+          <a href="#contacto" class="btn-modelo">Encargá una variante →</a>
+        </div>
       </div>
-      <div class="gal-item">
-        <div class="gal-img gal-img--2"></div>
-        <span class="gal-label">Tallado del mástil a gubia</span>
+      <div class="modelo-card">
+        <div class="modelo-img modelo-img--b">
+          <div class="modelo-overlay">
+            <span class="modelo-tag">CONTEMPORÁNEA · REFERENCIA B</span>
+          </div>
+        </div>
+        <div class="modelo-info">
+          <h3 class="modelo-name">LA VERDE</h3>
+          <p class="modelo-desc">Construcción híbrida con tapa de abeto y caja de caoba. Cuerpo más angosto para mayor comodidad. Voz limpia, dinámica y proyectada.</p>
+          <a href="#contacto" class="btn-modelo">Encargá una variante →</a>
+        </div>
       </div>
-      <div class="gal-item">
-        <div class="gal-img gal-img--3"></div>
-        <span class="gal-label">Encolado de aros</span>
-      </div>
-      <div class="gal-item">
-        <div class="gal-img gal-img--4"></div>
-        <span class="gal-label">Acabado en aceite · Detalle de boca</span>
-      </div>
-      <div class="gal-item">
-        <div class="gal-img gal-img--5"></div>
-        <span class="gal-label">Tensado y afinación final</span>
+      <div class="modelo-card">
+        <div class="modelo-img modelo-img--c">
+          <div class="modelo-overlay">
+            <span class="modelo-tag">ESPECIAL · REFERENCIA C</span>
+          </div>
+        </div>
+        <div class="modelo-info">
+          <h3 class="modelo-name">LA OSCURA</h3>
+          <p class="modelo-desc">Tapa de cedro colorado, ébano en el diapasón. Graves profundos, altos cristalinos. Para el músico que busca un sonido sin concesiones.</p>
+          <a href="#contacto" class="btn-modelo">Encargá una variante →</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════
-       CTA FINAL
-  ══════════════════════════════════════════ -->
-  <section id="contacto" class="cta-final">
-    <div class="cta-final__left">
-      <h2 class="cta-final__title">Lorem ipsum<br>dolor sit amet</h2>
-      <p class="cta-final__sub">
-        Cada guitarra que construimos empieza con una conversación.
-        Contanos qué sonido buscás y empezamos desde ahí.
+  <!-- 05 CADA PIEZA IMPORTA -->
+  <section class="piezas" id="piezas">
+    <div class="section-eyebrow">
+      <span class="section-num">05</span>
+      <span class="section-label">Deconstrucción de alta fidelidad</span>
+    </div>
+    <h2 class="section-title piezas-title">CADA PIEZA<br/>ES IMPORTANTE</h2>
+    <div class="piezas-grid">
+      <div class="pieza-item">
+        <div class="pieza-icon">◈</div>
+        <div class="pieza-num">A</div>
+        <h4 class="pieza-name">Cejuela &amp; Selleta</h4>
+        <p>Talladas en hueso natural densamente compactado. Transmisión rígida de la vibración sin pérdidas acústicas de los plásticos sintéticos industriales.</p>
+      </div>
+      <div class="pieza-item">
+        <div class="pieza-icon">≡</div>
+        <div class="pieza-num">B</div>
+        <h4 class="pieza-name">Trastes de Acero Inoxidable</h4>
+        <p>Nivelados, coronados y pulidos microscópicamente a mano. Entonación perfecta y durabilidad doble respecto de las aleaciones de níquel tradicionales.</p>
+      </div>
+      <div class="pieza-item">
+        <div class="pieza-icon">⬡</div>
+        <div class="pieza-num">C</div>
+        <h4 class="pieza-name">Blindaje Electromagnético</h4>
+        <p>Cavidades recubiertas con láminas de cobre electrolítico de alta pureza. Jaula de Faraday que elimina interferencias RFI bajo cualquier nivel de ganancia.</p>
+      </div>
+      <div class="pieza-item">
+        <div class="pieza-icon">◎</div>
+        <div class="pieza-num">D</div>
+        <h4 class="pieza-name">Micrófonos Bobinados</h4>
+        <p>Cada pickup se bobina a mano con alambre de calibre preciso. La resistencia DC y la respuesta de frecuencia se miden individualmente antes del montaje.</p>
+      </div>
+      <div class="pieza-item">
+        <div class="pieza-icon">◻</div>
+        <div class="pieza-num">E</div>
+        <h4 class="pieza-name">Unión Mástil-Cuerpo</h4>
+        <p>Encaje con tolerancias de décimas de milímetro. Encolado con adhesivos orgánicos de alta cristalización que maximizan la transferencia de energía vibratoria.</p>
+      </div>
+      <div class="pieza-item">
+        <div class="pieza-icon">⬤</div>
+        <div class="pieza-num">F</div>
+        <h4 class="pieza-name">Bóveda Armónica</h4>
+        <p>Tallada y afinada individualmente para cada instrumento. La curvatura exacta determina el carácter tonal fundamental de la guitarra terminada.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 SOBRE NOSOTROS -->
+  <section class="nosotros" id="nosotros">
+    <div class="nosotros-img-col">
+      <div class="nosotros-img-frame">
+        <div class="nosotros-img-placeholder">
+          <span class="nosotros-img-text">Maestro<br/>Luthier</span>
+        </div>
+        <div class="nosotros-img-caption">Más de 20 años de oficio</div>
+      </div>
+    </div>
+    <div class="nosotros-text-col">
+      <div class="section-eyebrow">
+        <span class="section-num">06</span>
+        <span class="section-label">Sobre nosotros</span>
+      </div>
+      <h2 class="section-title nosotros-title">LA PRESERVACIÓN<br/>DEL OFICIO</h2>
+      <p class="nosotros-manifesto">
+        Trastes nació de la convicción de que construir un instrumento musical es un acto de conservación cultural, no de manufactura.
       </p>
-    </div>
-    <div class="cta-final__right">
-      <a href="mailto:hola@traste.com.ar" class="btn-dark">Escribinos hoy</a>
-      <span class="cta-final__note">Respuesta en menos de 48 hs</span>
+      <p>
+        Trabajamos con técnicas de los antiguos maestros artesanos europeos, enriquecidas por el conocimiento moderno de la física de los materiales acústicos. Cada instrumento que sale del taller lleva meses de labor exclusiva y la firma tonal irrepetible del material con el que fue construido.
+      </p>
+      <p>
+        No producimos series. No hay dos guitarras iguales. Esa rareza orgánica es el único lujo que nos importa defender.
+      </p>
+      <div class="nosotros-stats">
+        <div class="stat">
+          <span class="stat-num">+20</span>
+          <span class="stat-label">Años de oficio</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">1</span>
+          <span class="stat-label">Instrumento por vez</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">0</span>
+          <span class="stat-label">Piezas en serie</span>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════
-       FOOTER
-  ══════════════════════════════════════════ -->
+  <!-- 07 COMENTARIOS / TESTIMONIOS -->
+  <section class="testimonios" id="testimonios">
+    <div class="section-eyebrow light">
+      <span class="section-num">07</span>
+      <span class="section-label">Resonancia de autor</span>
+    </div>
+    <h2 class="section-title light testimonios-title">VOCES DEL<br/>TALLER</h2>
+    <div class="testimonios-track-wrapper">
+      <div class="testimonios-track" id="testimonios-track">
+        <div class="testimonio-card">
+          <p class="testimonio-quote">"El balance dinámico de La Criolla me permitió grabar directamente sin compresión. La firma tonal es inconfundible en la mezcla."</p>
+          <div class="testimonio-author">
+            <div class="author-info">
+              <span class="author-name">Martín R.</span>
+              <span class="author-role">Guitarrista de Sesión · Buenos Aires</span>
+            </div>
+            <span class="author-guitar">La Criolla · Cedro / Palo Santo</span>
+          </div>
+        </div>
+        <div class="testimonio-card">
+          <p class="testimonio-quote">"Restauraron una guitarra de los años 40 que había perdido su voz. Hoy suena mejor que el día que salió del taller original."</p>
+          <div class="testimonio-author">
+            <div class="author-info">
+              <span class="author-name">Clara V.</span>
+              <span class="author-role">Coleccionista · Córdoba</span>
+            </div>
+            <span class="author-guitar">Restauración · Instrumento vintage 1947</span>
+          </div>
+        </div>
+        <div class="testimonio-card">
+          <p class="testimonio-quote">"La Oscura tiene una respuesta en los graves que nunca encontré en ninguna guitarra de producción. Es como tocar con un instrumento que te escucha."</p>
+          <div class="testimonio-author">
+            <div class="author-info">
+              <span class="author-name">Diego M.</span>
+              <span class="author-role">Solista de Estudio · Rosario</span>
+            </div>
+            <span class="author-guitar">La Oscura · Cedro Alaska / Nogal</span>
+          </div>
+        </div>
+        <div class="testimonio-card">
+          <p class="testimonio-quote">"El proceso de cocreación fue tan riguroso como la guitarra misma. Cada decisión estuvo fundamentada en física acústica real, no en opinión."</p>
+          <div class="testimonio-author">
+            <div class="author-info">
+              <span class="author-name">Lucía P.</span>
+              <span class="author-role">Intérprete de Cámara · Mendoza</span>
+            </div>
+            <span class="author-guitar">Encargo a medida · Escala 652 mm</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonios-nav">
+      <button class="t-btn" id="t-prev" aria-label="Anterior">←</button>
+      <button class="t-btn" id="t-next" aria-label="Siguiente">→</button>
+    </div>
+  </section>
+
+  <!-- 08 FOTOS DESTACADAS / GALERÍA -->
+  <section class="galeria" id="galeria">
+    <div class="section-eyebrow">
+      <span class="section-num">08</span>
+      <span class="section-label">Galería de la materia</span>
+    </div>
+    <h2 class="section-title galeria-title">FOTOS<br/>DESTACADAS</h2>
+    <div class="galeria-grid">
+      <div class="galeria-item galeria-item--tall">
+        <div class="galeria-placeholder g1">
+          <span>Veta de cedro colorado</span>
+        </div>
+      </div>
+      <div class="galeria-item">
+        <div class="galeria-placeholder g2">
+          <span>Herramientas de taller</span>
+        </div>
+      </div>
+      <div class="galeria-item">
+        <div class="galeria-placeholder g3">
+          <span>Barniz aplicado a mano</span>
+        </div>
+      </div>
+      <div class="galeria-item galeria-item--wide">
+        <div class="galeria-placeholder g4">
+          <span>Detalle de la roseta artesanal</span>
+        </div>
+      </div>
+      <div class="galeria-item galeria-item--tall">
+        <div class="galeria-placeholder g5">
+          <span>Mástil durante el tallado</span>
+        </div>
+      </div>
+      <div class="galeria-item">
+        <div class="galeria-placeholder g6">
+          <span>Ébano africano · diapasón</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL / CONTACTO -->
+  <section class="contacto" id="contacto">
+    <div class="contacto-inner">
+      <div class="contacto-left">
+        <div class="section-eyebrow light">
+          <span class="section-num">08</span>
+          <span class="section-label">Empezá tu proyecto</span>
+        </div>
+        <h2 class="contacto-title">¿LISTO PARA DAR<br/>VIDA A TU<br/><span class="accent-text">INSTRUMENTO?</span></h2>
+        <p class="contacto-desc">Escribinos y contanos tu idea. Estamos para hacerla realidad.</p>
+        <a href="mailto:hola@trastes.com.ar" class="btn-primary-light">Inscribirme al taller →</a>
+      </div>
+      <div class="contacto-right">
+        <div class="contacto-blueprint">
+          <svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg" class="blueprint-svg">
+            <!-- Guitar body outline -->
+            <ellipse cx="150" cy="260" rx="80" ry="100" stroke="#E8430A" stroke-width="0.8" stroke-dasharray="4 3" opacity="0.4"/>
+            <ellipse cx="150" cy="200" rx="60" ry="70" stroke="#E8430A" stroke-width="0.8" stroke-dasharray="4 3" opacity="0.4"/>
+            <!-- Neck -->
+            <rect x="135" y="60" width="30" height="140" stroke="#E8430A" stroke-width="0.8" stroke-dasharray="4 3" opacity="0.4"/>
+            <!-- Sound hole -->
+            <circle cx="150" cy="220" r="25" stroke="#E8430A" stroke-width="0.8" opacity="0.3"/>
+            <!-- Headstock -->
+            <rect x="128" y="20" width="44" height="45" rx="4" stroke="#E8430A" stroke-width="0.8" stroke-dasharray="4 3" opacity="0.4"/>
+            <!-- Strings -->
+            <line x1="138" y1="60" x2="138" y2="350" stroke="#E8430A" stroke-width="0.4" opacity="0.2"/>
+            <line x1="144" y1="60" x2="144" y2="355" stroke="#E8430A" stroke-width="0.4" opacity="0.2"/>
+            <line x1="150" y1="60" x2="150" y2="358" stroke="#E8430A" stroke-width="0.4" opacity="0.2"/>
+            <line x1="156" y1="60" x2="156" y2="355" stroke="#E8430A" stroke-width="0.4" opacity="0.2"/>
+            <line x1="162" y1="60" x2="162" y2="350" stroke="#E8430A" stroke-width="0.4" opacity="0.2"/>
+            <!-- Fret lines -->
+            <line x1="135" y1="100" x2="165" y2="100" stroke="#E8430A" stroke-width="0.5" opacity="0.25"/>
+            <line x1="135" y1="120" x2="165" y2="120" stroke="#E8430A" stroke-width="0.5" opacity="0.25"/>
+            <line x1="135" y1="138" x2="165" y2="138" stroke="#E8430A" stroke-width="0.5" opacity="0.25"/>
+            <line x1="135" y1="154" x2="165" y2="154" stroke="#E8430A" stroke-width="0.5" opacity="0.25"/>
+            <line x1="135" y1="168" x2="165" y2="168" stroke="#E8430A" stroke-width="0.5" opacity="0.25"/>
+            <line x1="135" y1="180" x2="165" y2="180" stroke="#E8430A" stroke-width="0.5" opacity="0.25"/>
+            <!-- Dimension lines -->
+            <line x1="40" y1="60" x2="40" y2="360" stroke="#E8430A" stroke-width="0.5" opacity="0.2"/>
+            <line x1="36" y1="60" x2="44" y2="60" stroke="#E8430A" stroke-width="0.5" opacity="0.2"/>
+            <line x1="36" y1="360" x2="44" y2="360" stroke="#E8430A" stroke-width="0.5" opacity="0.2"/>
+            <text x="20" y="215" font-size="8" fill="#E8430A" opacity="0.4" font-family="Geist, monospace">650mm</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
   <footer class="footer">
-    <div class="footer__brand">
-      <p class="footer__logo">TR<span>A</span>STE</p>
-      <p class="footer__tagline">Luthería artesanal · Desde 2012</p>
-    </div>
-    <nav class="footer__nav" aria-label="Footer navegación">
-      <p class="footer__nav-title">Secciones</p>
-      <ul>
-        <li><a href="#metodo">Método de trabajo</a></li>
-        <li><a href="#proceso">Proceso de encargo</a></li>
-        <li><a href="#modelos">Modelos de referencia</a></li>
-        <li><a href="#piezas">Anatomía del instrumento</a></li>
-        <li><a href="#nosotros">Sobre nosotros</a></li>
-      </ul>
-    </nav>
-    <div class="footer__contact">
-      <p class="footer__nav-title">Contacto</p>
-      <ul>
-        <li><a href="mailto:hola@traste.com.ar">hola@traste.com.ar</a></li>
-        <li><a href="#">Instagram</a></li>
-        <li><a href="#">WhatsApp</a></li>
-        <li><a href="#">La Boca, Buenos Aires</a></li>
-      </ul>
-    </div>
-    <div class="footer__bottom">
-      <span>© 2026 Traste Luthería. Todos los derechos reservados.</span>
-      <span class="footer__coord">LAT −34.6297° · LON −58.3637° · TRASTE-2026</span>
+    <div class="footer-inner">
+      <div class="footer-logo">TRASTES</div>
+      <div class="footer-tagline">Luthería de Autor · Buenos Aires</div>
+      <div class="footer-links">
+        <a href="mailto:hola@trastes.com.ar">hola@trastes.com.ar</a>
+        <a href="#">Instagram</a>
+      </div>
+      <div class="footer-copy">© 2026 Trastes — Luthería de Autor. Todos los derechos reservados.</div>
     </div>
   </footer>
 
