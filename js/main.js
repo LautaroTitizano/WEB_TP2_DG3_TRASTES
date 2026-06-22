@@ -1,203 +1,406 @@
-/* =============================================
-   TRASTES — LUTHERÍA DE AUTOR
-   main.js
-   ============================================= */
+/* ==========================================
+   TRASTES - MAIN.JS
+   Inspiración:
+   Apple
+   Nike Run+
+   Awwwards
+========================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
+/* ==========================
+   NAVBAR SCROLL
+========================== */
 
-  // ─── NAV SHADOW ON SCROLL ───────────────────────────────────
-  const nav = document.querySelector('.nav');
-  window.addEventListener('scroll', () => {
-    nav.style.boxShadow = window.scrollY > 30
-      ? '0 2px 24px rgba(13,13,13,0.08)'
-      : 'none';
-  }, { passive: true });
+const navbar = document.querySelector(".navbar");
 
+window.addEventListener("scroll", () => {
 
-  // ─── ACCORDION ──────────────────────────────────────────────
-  const accordionItems = document.querySelectorAll('.accordion-item');
+    if (window.scrollY > 60) {
 
-  accordionItems.forEach(item => {
-    const header = item.querySelector('.accordion-header');
-    header.addEventListener('click', () => {
-      const isActive = item.classList.contains('active');
-      // Close all
-      accordionItems.forEach(i => i.classList.remove('active'));
-      // Open clicked if it was closed
-      if (!isActive) item.classList.add('active');
-    });
-  });
+        navbar.classList.add("scrolled");
 
+    } else {
 
-  // ─── TESTIMONIALS CAROUSEL ──────────────────────────────────
-  const track     = document.getElementById('testimonios-track');
-  const prevBtn   = document.getElementById('t-prev');
-  const nextBtn   = document.getElementById('t-next');
-  const cards     = track ? track.querySelectorAll('.testimonio-card') : [];
-  let   currentIndex = 0;
-
-  function getCardsVisible() {
-    return window.innerWidth <= 640 ? 1 : 2;
-  }
-
-  function updateCarousel() {
-    if (!track || cards.length === 0) return;
-    const visible  = getCardsVisible();
-    const maxIndex = Math.max(0, cards.length - visible);
-    currentIndex   = Math.min(Math.max(currentIndex, 0), maxIndex);
-
-    // Calculate offset based on first card width + gap
-    const cardWidth = cards[0].getBoundingClientRect().width;
-    const gap       = 24; // 1.5rem gap
-    const offset    = currentIndex * (cardWidth + gap);
-    track.style.transform = `translateX(-${offset}px)`;
-  }
-
-  if (prevBtn && nextBtn) {
-    prevBtn.addEventListener('click', () => { currentIndex--; updateCarousel(); });
-    nextBtn.addEventListener('click', () => { currentIndex++; updateCarousel(); });
-    window.addEventListener('resize', updateCarousel, { passive: true });
-  }
-
-
-  // ─── SCROLL REVEAL ──────────────────────────────────────────
-  const revealEls = document.querySelectorAll(
-    '.section-title, .section-eyebrow, .accordion-item, .modelo-card, ' +
-    '.pieza-item, .timeline-step, .testimonio-card, .galeria-item, ' +
-    '.nosotros-manifesto, .nosotros-stats, .stat, .contacto-title'
-  );
-
-  // Add reveal class
-  revealEls.forEach((el, i) => {
-    el.classList.add('reveal');
-    // Stagger siblings in grid containers
-    const parent = el.parentElement;
-    if (parent) {
-      const siblings = parent.querySelectorAll(':scope > *');
-      siblings.forEach((sib, idx) => {
-        if (sib === el) {
-          const delay = Math.min(idx, 5);
-          if (delay > 0) el.classList.add(`reveal-delay-${delay}`);
-        }
-      });
+        navbar.classList.remove("scrolled");
     }
-  });
 
-  // IntersectionObserver for performance
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
+});
+
+/* ==========================
+   REVEAL ELEMENTS
+========================== */
+
+const revealElements = document.querySelectorAll(
+    ".method-card, .model-card, .course, .part, .about, .testimonial, .gallery img, .process-item"
+);
+
+const revealObserver = new IntersectionObserver(
+
+    (entries) => {
+
+        entries.forEach((entry) => {
+
+            if (entry.isIntersecting) {
+
+                entry.target.classList.add("active");
+
+            }
+
+        });
+
+    },
+
+    {
+        threshold: 0.15
+    }
+
+);
+
+revealElements.forEach((element) => {
+
+    element.classList.add("reveal");
+
+    revealObserver.observe(element);
+
+});
+
+/* ==========================
+   PARALLAX HERO
+========================== */
+
+const heroImage = document.querySelector(".hero-image img");
+
+window.addEventListener("scroll", () => {
+
+    const offset = window.pageYOffset;
+
+    if (heroImage) {
+
+        heroImage.style.transform =
+            `translateY(${offset * 0.08}px)`;
+    }
+
+});
+
+/* ==========================
+   COURSE HOVER EFFECT
+========================== */
+
+const cards = document.querySelectorAll(".course");
+
+cards.forEach(card => {
+
+    card.addEventListener("mousemove", (e) => {
+
+        const rect = card.getBoundingClientRect();
+
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateY = (x - centerX) / 35;
+        const rotateX = -(y - centerY) / 35;
+
+        card.style.transform =
+            `perspective(1200px)
+            rotateX(${rotateX}deg)
+            rotateY(${rotateY}deg)
+            translateY(-10px)`;
+
     });
-  }, {
-    threshold: 0.12,
-    rootMargin: '0px 0px -40px 0px'
-  });
 
-  revealEls.forEach(el => observer.observe(el));
+    card.addEventListener("mouseleave", () => {
 
+        card.style.transform =
+            "perspective(1200px) rotateX(0deg) rotateY(0deg)";
 
-  // ─── GALERÍA LIGHTBOX (simple) ──────────────────────────────
-  const galeriaItems = document.querySelectorAll('.galeria-item');
-  let   lightbox     = null;
-
-  function createLightbox(content) {
-    const lb = document.createElement('div');
-    lb.style.cssText = `
-      position: fixed; inset: 0; z-index: 999;
-      background: rgba(13,13,13,0.96);
-      display: flex; align-items: center; justify-content: center;
-      cursor: zoom-out;
-      animation: fadeIn 0.25s ease;
-    `;
-    const style = document.createElement('style');
-    style.textContent = '@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }';
-    lb.appendChild(style);
-
-    const inner = document.createElement('div');
-    inner.style.cssText = `
-      max-width: 80vw; max-height: 80vh;
-      background: #1a1510;
-      border-radius: 12px;
-      overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-      min-width: 400px; min-height: 300px;
-    `;
-    inner.innerHTML = content;
-    lb.appendChild(inner);
-
-    lb.addEventListener('click', () => {
-      document.body.removeChild(lb);
-      lightbox = null;
     });
 
-    document.body.appendChild(lb);
-    lightbox = lb;
-  }
+});
 
-  galeriaItems.forEach(item => {
-    item.style.cursor = 'zoom-in';
-    item.addEventListener('click', () => {
-      if (lightbox) return;
-      const placeholder = item.querySelector('.galeria-placeholder');
-      const label = placeholder ? placeholder.querySelector('span').textContent : '';
-      const bg    = getComputedStyle(placeholder).background;
-      createLightbox(`
-        <div style="
-          width: 70vw; height: 60vh;
-          background: ${bg};
-          display: flex; align-items: flex-end;
-          padding: 2rem;
-          font-family: 'Geist', sans-serif;
-          font-size: 0.8rem;
-          letter-spacing: 0.14em;
-          text-transform: uppercase;
-          color: rgba(255,255,255,0.5);
-        ">${label}</div>
-      `);
+/* ==========================
+   MODEL CARDS 3D
+========================== */
+
+const modelCards = document.querySelectorAll(".model-card");
+
+modelCards.forEach(card => {
+
+    card.addEventListener("mousemove", (e) => {
+
+        const rect = card.getBoundingClientRect();
+
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateY = (x - centerX) / 45;
+        const rotateX = -(y - centerY) / 45;
+
+        card.style.transform =
+            `perspective(1200px)
+            rotateX(${rotateX}deg)
+            rotateY(${rotateY}deg)
+            translateY(-8px)`;
+
     });
-  });
 
+    card.addEventListener("mouseleave", () => {
 
-  // ─── CURSOR ACCENT (desktop only) ───────────────────────────
-  if (window.matchMedia('(pointer: fine)').matches) {
-    const cursor = document.createElement('div');
-    cursor.style.cssText = `
-      position: fixed; top: 0; left: 0;
-      width: 8px; height: 8px;
-      background: #E8430A;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transition: transform 0.15s ease, width 0.25s ease, height 0.25s ease;
-      transform: translate(-50%, -50%);
-      mix-blend-mode: multiply;
-    `;
-    document.body.appendChild(cursor);
+        card.style.transform =
+            "perspective(1200px) rotateX(0deg) rotateY(0deg)";
 
-    let cx = 0, cy = 0;
-    document.addEventListener('mousemove', e => {
-      cx = e.clientX; cy = e.clientY;
-      cursor.style.left = cx + 'px';
-      cursor.style.top  = cy + 'px';
-    }, { passive: true });
-
-    // Expand on interactive elements
-    const interactives = document.querySelectorAll('a, button, .accordion-header, .galeria-item, .modelo-card');
-    interactives.forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.width  = '24px';
-        cursor.style.height = '24px';
-        cursor.style.opacity = '0.5';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.width  = '8px';
-        cursor.style.height = '8px';
-        cursor.style.opacity = '1';
-      });
     });
-  }
+
+});
+
+/* ==========================
+   SMOOTH SECTION FADE
+========================== */
+
+const sections = document.querySelectorAll("section");
+
+const sectionObserver = new IntersectionObserver(
+
+    entries => {
+
+        entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+
+                entry.target.style.opacity = "1";
+                entry.target.style.transform = "translateY(0px)";
+            }
+
+        });
+
+    },
+
+    {
+        threshold: 0.05
+    }
+
+);
+
+sections.forEach(section => {
+
+    section.style.opacity = "0";
+    section.style.transform = "translateY(50px)";
+    section.style.transition = "all 1s ease";
+
+    sectionObserver.observe(section);
+
+});
+
+/* ==========================
+   GALLERY IMAGE EFFECT
+========================== */
+
+const galleryImages = document.querySelectorAll(".gallery img");
+
+galleryImages.forEach(image => {
+
+    image.addEventListener("mouseenter", () => {
+
+        image.style.filter = "grayscale(0%)";
+        image.style.transform = "scale(1.02)";
+
+    });
+
+    image.addEventListener("mouseleave", () => {
+
+        image.style.filter = "grayscale(100%)";
+        image.style.transform = "scale(1)";
+
+    });
+
+});
+
+/* ==========================
+   COUNTER ANIMATION
+========================== */
+
+const counters = document.querySelectorAll(".stats strong");
+
+const runCounter = (counter) => {
+
+    const target =
+        parseInt(counter.innerText.replace(/\D/g, ""));
+
+    let current = 0;
+
+    const increment = target / 80;
+
+    const updateCounter = () => {
+
+        if (current < target) {
+
+            current += increment;
+
+            counter.innerText =
+                Math.ceil(current) + "+";
+
+            requestAnimationFrame(updateCounter);
+
+        } else {
+
+            counter.innerText =
+                target + "+";
+        }
+
+    };
+
+    updateCounter();
+};
+
+const counterObserver = new IntersectionObserver(
+
+    entries => {
+
+        entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+
+                runCounter(entry.target);
+
+                counterObserver.unobserve(entry.target);
+            }
+
+        });
+
+    },
+
+    {
+        threshold: 0.5
+    }
+
+);
+
+counters.forEach(counter => {
+
+    counterObserver.observe(counter);
+
+});
+
+/* ==========================
+   MAGNETIC BUTTONS
+========================== */
+
+const buttons = document.querySelectorAll(
+    ".btn-primary, .btn-secondary"
+);
+
+buttons.forEach(button => {
+
+    button.addEventListener("mousemove", (e) => {
+
+        const rect = button.getBoundingClientRect();
+
+        const x =
+            e.clientX - rect.left - rect.width / 2;
+
+        const y =
+            e.clientY - rect.top - rect.height / 2;
+
+        button.style.transform =
+            `translate(${x * 0.12}px, ${y * 0.12}px)`;
+
+    });
+
+    button.addEventListener("mouseleave", () => {
+
+        button.style.transform =
+            "translate(0px,0px)";
+    });
+
+});
+
+/* ==========================
+   SCROLL PROGRESS BAR
+========================== */
+
+const progressBar = document.createElement("div");
+
+progressBar.style.position = "fixed";
+progressBar.style.top = "0";
+progressBar.style.left = "0";
+progressBar.style.height = "3px";
+progressBar.style.width = "0%";
+progressBar.style.zIndex = "99999";
+progressBar.style.background = "#b87333";
+
+document.body.appendChild(progressBar);
+
+window.addEventListener("scroll", () => {
+
+    const winScroll =
+        document.documentElement.scrollTop;
+
+    const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+
+    const scrolled =
+        (winScroll / height) * 100;
+
+    progressBar.style.width =
+        scrolled + "%";
+
+});
+
+/* ==========================
+   CTA PULSE
+========================== */
+
+const ctaButton =
+    document.querySelector(".cta .btn-primary");
+
+if (ctaButton) {
+
+    setInterval(() => {
+
+        ctaButton.animate(
+
+            [
+
+                {
+                    transform: "scale(1)"
+                },
+
+                {
+                    transform: "scale(1.05)"
+                },
+
+                {
+                    transform: "scale(1)"
+                }
+
+            ],
+
+            {
+
+                duration: 1600
+            }
+
+        );
+
+    }, 5000);
+
+}
+
+/* ==========================
+   PAGE LOADED
+========================== */
+
+window.addEventListener("load", () => {
+
+    document.body.classList.add("loaded");
+
+    console.log(
+        "TRASTES - Experience Loaded"
+    );
 
 });
