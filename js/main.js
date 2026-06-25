@@ -900,3 +900,306 @@ function init(){
 }
 
 init();
+/*====================================================
+            CONTADORES ANIMADOS
+====================================================*/
+
+const counters = document.querySelectorAll("[data-counter]");
+
+function animateCounter(counter){
+
+    const target = Number(counter.dataset.counter);
+
+    let current = 0;
+
+    const increment = target / 80;
+
+    const timer = setInterval(()=>{
+
+        current += increment;
+
+        if(current >= target){
+
+            current = target;
+
+            clearInterval(timer);
+
+        }
+
+        counter.textContent = Math.floor(current);
+
+    },16);
+
+}
+
+const counterObserver = new IntersectionObserver((entries)=>{
+
+    entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+            animateCounter(entry.target);
+
+            counterObserver.unobserve(entry.target);
+
+        }
+
+    });
+
+},{threshold:.6});
+
+counters.forEach(counter=>counterObserver.observe(counter));
+
+
+
+/*====================================================
+            APARICIÓN ESCALONADA
+====================================================*/
+
+const staggerGroups = document.querySelectorAll(".courses-grid,.testimonial-grid,.gallery-grid");
+
+staggerGroups.forEach(group=>{
+
+    const children = group.children;
+
+    [...children].forEach((item,index)=>{
+
+        item.style.transitionDelay = `${index * 120}ms`;
+
+    });
+
+});
+
+
+
+/*====================================================
+            BOTÓN VOLVER ARRIBA
+====================================================*/
+
+const topButton = document.createElement("button");
+
+topButton.className = "scroll-top";
+
+topButton.innerHTML = "↑";
+
+document.body.appendChild(topButton);
+
+window.addEventListener("scroll",()=>{
+
+    if(window.scrollY > 900){
+
+        topButton.classList.add("visible");
+
+    }else{
+
+        topButton.classList.remove("visible");
+
+    }
+
+});
+
+topButton.addEventListener("click",()=>{
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+});
+
+
+
+/*====================================================
+            LAZY LOADING IMÁGENES
+====================================================*/
+
+const lazyImages = document.querySelectorAll("img");
+
+const lazyObserver = new IntersectionObserver((entries)=>{
+
+    entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+            entry.target.classList.add("loaded");
+
+            lazyObserver.unobserve(entry.target);
+
+        }
+
+    });
+
+},{threshold:.1});
+
+lazyImages.forEach(image=>lazyObserver.observe(image));
+
+
+
+/*====================================================
+            EFECTO PARALLAX GENERAL
+====================================================*/
+
+const parallaxItems = document.querySelectorAll("[data-parallax]");
+
+window.addEventListener("scroll",()=>{
+
+    const scroll = window.pageYOffset;
+
+    parallaxItems.forEach(item=>{
+
+        const speed = Number(item.dataset.parallax) || .15;
+
+        item.style.transform = `translateY(${scroll * speed}px)`;
+
+    });
+
+});
+
+
+
+/*====================================================
+            EFECTO EN TÍTULOS
+====================================================*/
+
+const titles = document.querySelectorAll("h2");
+
+const titleObserver = new IntersectionObserver((entries)=>{
+
+    entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+            entry.target.classList.add("active-title");
+
+        }
+
+    });
+
+},{threshold:.4});
+
+titles.forEach(title=>titleObserver.observe(title));
+
+
+
+/*====================================================
+            NAV LINK ACTIVO
+====================================================*/
+
+const menuLinks = document.querySelectorAll(".navigation a");
+
+window.addEventListener("scroll",()=>{
+
+    let currentSection = "";
+
+    sections.forEach(section=>{
+
+        const top = section.offsetTop - 180;
+
+        if(window.scrollY >= top){
+
+            currentSection = section.getAttribute("id");
+
+        }
+
+    });
+
+    menuLinks.forEach(link=>{
+
+        link.classList.remove("active");
+
+        if(link.getAttribute("href") === "#" + currentSection){
+
+            link.classList.add("active");
+
+        }
+
+    });
+
+});
+
+
+
+/*====================================================
+            RANDOM FLOAT
+====================================================*/
+
+const floatingCards = document.querySelectorAll(".course-card");
+
+floatingCards.forEach(card=>{
+
+    let direction = 1;
+
+    setInterval(()=>{
+
+        card.style.transform = `translateY(${direction * 6}px)`;
+
+        direction *= -1;
+
+    },2500);
+
+});
+
+
+
+/*====================================================
+            OPTIMIZACIÓN RAF
+====================================================*/
+
+let ticking = false;
+
+function updateScroll(){
+
+    navbarScroll();
+
+    darkTransition();
+
+    ticking = false;
+
+}
+
+window.addEventListener("scroll",()=>{
+
+    if(!ticking){
+
+        window.requestAnimationFrame(updateScroll);
+
+        ticking = true;
+
+    }
+
+});
+
+
+
+/*====================================================
+            RESIZE
+====================================================*/
+
+window.addEventListener("resize",()=>{
+
+    navbarScroll();
+
+    darkTransition();
+
+});
+
+
+
+/*====================================================
+            INIT
+====================================================*/
+
+function init(){
+
+    navbarScroll();
+
+    darkTransition();
+
+    console.log("TRASTES — Ready");
+
+}
+
+init();

@@ -1,1173 +1,259 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>TRASTES | Luthería de Autor</title>
-
-    <meta name="description"
-        content="Luthería de Autor. Construcción artesanal, restauración profesional y cursos presenciales de luthería.">
-
+    <title>Luthiería - Instrumentos con Alma</title>
+    <!-- Cargamos las fuentes requeridas: Montserrat y Geist (vía fontshare u alternativa estándar) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-
-    <link rel="stylesheet" href="css/style.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/geist-sans');
+    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <!--==========================
-            NAVBAR
-    ===========================-->
-
-    <header class="header">
-
-        <div class="container nav-container">
-
-            <a href="#" class="logo">
-                TRASTES
-            </a>
-
-            <nav class="navigation">
-
-                <a href="#metodo">Método</a>
-
-                <a href="#proceso">Proceso</a>
-
-                <a href="#cursos">Cursos</a>
-
-                <a href="#nosotros">Nosotros</a>
-
-                <a href="#contacto">Contacto</a>
-
-            </nav>
-
-            <a href="#cursos" class="button-nav">
-
-                Reservar Curso
-
-            </a>
-
+    <!-- 1. HERO SECTION -->
+    <header class="hero-section">
+        <div class="hero-container">
+            <div class="hero-text">
+                <h1>INSTRUMENTOS<br>CONSTRUIDOS<br>CON ALMA.</h1>
+                <p>Cursos profesionales para aprender luthiería desde cero con un enfoque tradicional y artesanal.</p>
+                <a href="#inscripcion" class="btn-primary">Saber más</a>
+            </div>
+            <div class="hero-image-wrapper">
+                <img src="assets/hero-guitar.jpg" alt="Guitarra clásica en construcción" class="placeholder-img">
+            </div>
         </div>
-
     </header>
 
-    <!--==========================
-            HERO
-    ===========================-->
-
-    <main>
-
-        <section class="hero">
-
-            <div class="container hero-grid">
-
-                <div class="hero-content">
-
-                    <span class="eyebrow">
-
-                        Luthería de Autor · Buenos Aires
-
-                    </span>
-
-                    <h1 data-animate>
-
-                        INSTRUMENTOS<br>
-
-                        CONSTRUIDOS<br>
-
-                        CON ALMA.
-
-                    </h1>
-
-                    <p>
-
-                        Construcción artesanal, restauración profesional
-                        y cursos para aprender el oficio desde cero.
-                        Cada instrumento nace a partir de una historia,
-                        una madera y un músico.
-
-                    </p>
-
-                    <div class="hero-buttons">
-
-                        <a href="#cursos" class="button-primary">
-
-                            Ver Cursos
-
-                        </a>
-
-                        <a href="#metodo" class="button-secondary">
-
-                            Explorar Taller
-
-                        </a>
-
+    <!-- 2. SECCIÓN: EL ARTE DETRÁS DEL SONIDO (ACORDEÓN ESTILO PESTAÑAS/CARPETAS) -->
+    <section class="arte-sonido-section">
+        <h2 class="section-title-large">EL ARTE DETRÁS DEL SONIDO</h2>
+        
+        <div class="accordion-container">
+            <!-- Item 01 (Activo por defecto) -->
+            <div class="accordion-item active" data-index="01">
+                <div class="accordion-header">
+                    <span class="number">01</span>
+                    <h2 class="header-title">SELECCIÓN</h2>
+                </div>
+                <div class="accordion-content">
+                    <div class="content-left">
+                        <h3>01. SELECCIÓN</h3>
+                        <p class="description">Maderas escogidas por estabilidad, resonancia y carácter acústico.</p>
+                        <ul class="items-list">
+                            <li>• MADERAS PREMIUM</li>
+                            <li>• CONTROL DE HUMEDAD</li>
+                            <li>• RESONANCIA ÓPTIMA</li>
+                        </ul>
                     </div>
-
-                </div>
-
-                <figure class="hero-image">
-
-                    <img src="IMG HERO.jpg"
-                        alt="Guitarra artesanal">
-
-                </figure>
-
-            </div>
-
-        </section>
-
-        <!--==========================
-                METODO
-        ===========================-->
-
-        <section id="metodo" class="method">
-
-            <div class="container">
-
-                <div class="section-header">
-
-                    <span class="section-number">
-
-                        01
-
-                    </span>
-
-                    <span class="section-title">
-
-                        Método de Trabajo
-
-                    </span>
-
-                </div>
-
-                <div class="headline">
-
-                    <h2>
-
-                        CADA PIEZA<br>
-
-                        IMPORTA.
-
-                    </h2>
-
-                </div>
-
-                <div class="method-list">
-
-                    <article class="method-item">
-
-                        <span>
-
-                            01
-
-                        </span>
-
-                        <h3>
-
-                            Selección
-
-                        </h3>
-
-                        <p>
-
-                            Elegimos cuidadosamente cada madera
-                            considerando estabilidad,
-                            resonancia y estética natural.
-
-                        </p>
-
-                    </article>
-
-                    <article class="method-item">
-
-                        <span>
-
-                            02
-
-                        </span>
-
-                        <h3>
-
-                            Diseño
-
-                        </h3>
-
-                        <p>
-
-                            Cada instrumento es diseñado
-                            pensando en la comodidad,
-                            el equilibrio y el sonido.
-
-                        </p>
-
-                    </article>
-
-                    <article class="method-item">
-
-                        <span>
-
-                            03
-
-                        </span>
-
-                        <h3>
-
-                            Construcción
-
-                        </h3>
-
-                        <p>
-
-                            Todo el proceso es artesanal,
-                            desde el tallado del mástil
-                            hasta el ensamblado final.
-
-                        </p>
-
-                    </article>
-
-                    <article class="method-item">
-
-                        <span>
-
-                            04
-
-                        </span>
-
-                        <h3>
-
-                            Acabado
-
-                        </h3>
-
-                        <p>
-
-                            El acabado protege la madera
-                            respetando su resonancia
-                            y su identidad visual.
-
-                        </p>
-
-                    </article>
-
-                </div>
-
-            </div>
-
-        </section>
-
-        <!--==========================
-                PROCESO
-        ===========================-->
-
-        <section id="proceso" class="process">
-
-            <div class="container">
-
-                <div class="process-title">
-
-                    <h2>
-
-                        DE LA IDEA<br>
-
-                        AL INSTRUMENTO
-
-                    </h2>
-
-                </div>
-
-                <div class="timeline">
-
-                    <article class="step">
-
-                        <div class="step-number">
-
-                            01
-
-                        </div>
-
-                        <h3>
-
-                            Diagnóstico
-
-                        </h3>
-
-                        <p>
-
-                            Analizamos las necesidades
-                            del músico y del instrumento.
-
-                        </p>
-
-                    </article>
-
-                    <article class="step">
-
-                        <div class="step-number">
-
-                            02
-
-                        </div>
-
-                        <h3>
-
-                            Diseño Personalizado
-
-                        </h3>
-
-                        <p>
-
-                            Definimos materiales,
-                            ergonomía y configuración.
-
-                        </p>
-
-                    </article>
-
-                    <article class="step">
-
-                        <div class="step-number">
-
-                            03
-
-                        </div>
-
-                        <h3>
-
-                            Construcción
-
-                        </h3>
-
-                        <p>
-
-                            El instrumento comienza
-                            a tomar forma en el taller.
-
-                        </p>
-
-                    </article>
-
-                    <article class="step">
-
-                        <div class="step-number">
-
-                            04
-
-                        </div>
-
-                        <h3>
-
-                            Calibración
-
-                        </h3>
-
-                        <p>
-
-                            Ajustes finos,
-                            acción,
-                            afinación
-                            y respuesta sonora.
-
-                        </p>
-
-                    </article>
-
-                    <article class="step">
-
-                        <div class="step-number">
-
-                            05
-
-                        </div>
-
-                        <h3>
-
-                            Entrega
-
-                        </h3>
-
-                        <p>
-
-                            El instrumento queda listo
-                            para acompañar toda una vida.
-
-                        </p>
-
-                    </article>
-
-                </div>
-
-            </div>
-
-        </section>
-```
-```html
-        <!--==========================================
-                    CURSOS
-        ===========================================-->
-
-        <section id="cursos" class="courses">
-
-            <div class="container">
-
-                <div class="section-header">
-
-                    <span class="section-number">
-                        03
-                    </span>
-
-                    <span class="section-title">
-                        Cursos
-                    </span>
-
-                </div>
-
-                <div class="courses-heading">
-
-                    <h2>
-
-                        DEL TALLER A TUS MANOS.<br>
-                        GUIAMOS TU TALENTO.
-
-                    </h2>
-
-                    <p>
-
-                        Aprendé desde cero junto a un maestro luthier.
-                        Descubrí el proceso completo de construcción,
-                        reparación y calibración de instrumentos.
-
-                    </p>
-
-                </div>
-
-                <div class="courses-grid">
-
-                    <!-- CURSO PRINCIPAL -->
-
-                    <article class="course-card featured">
-
-                        <figure>
-
-                            <img src="assets/curso-1.jpg"
-                                alt="Curso Inicial">
-
-                        </figure>
-
-                        <div class="course-info">
-
-                            <span>
-
-                                CURSO 01
-
-                            </span>
-
-                            <h3>
-
-                                Aprende Luthería<br>
-                                desde cero.
-
-                            </h3>
-
-                            <p>
-
-                                Construí tu primera guitarra
-                                paso a paso utilizando herramientas
-                                profesionales.
-
-                            </p>
-
-                            <a href="#">
-
-                                Ver Programa →
-
-                            </a>
-
-                        </div>
-
-                    </article>
-
-                    <!-- CURSO 2 -->
-
-                    <article class="course-card">
-
-                        <figure>
-
-                            <img src="assets/curso-2.jpg"
-                                alt="Curso Intermedio">
-
-                        </figure>
-
-                        <div class="course-info">
-
-                            <span>
-
-                                CURSO 02
-
-                            </span>
-
-                            <h3>
-
-                                Reparación Profesional
-
-                            </h3>
-
-                            <p>
-
-                                Nivelación de trastes,
-                                calibración y mantenimiento.
-
-                            </p>
-
-                        </div>
-
-                    </article>
-
-                    <!-- CURSO 3 -->
-
-                    <article class="course-card">
-
-                        <figure>
-
-                            <img src="assets/curso-3.jpg"
-                                alt="Curso Avanzado">
-
-                        </figure>
-
-                        <div class="course-info">
-
-                            <span>
-
-                                CURSO 03
-
-                            </span>
-
-                            <h3>
-
-                                Instrumentos Premium
-
-                            </h3>
-
-                            <p>
-
-                                Construcción avanzada
-                                y maderas exóticas.
-
-                            </p>
-
-                        </div>
-
-                    </article>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-
-
-        <!--==========================================
-                CADA PIEZA IMPORTA
-        ===========================================-->
-
-        <section class="pieces">
-
-            <div class="container">
-
-                <div class="pieces-left">
-
-                    <span class="section-number">
-
-                        04
-
-                    </span>
-
-                    <h2>
-
-                        CADA PIEZA<br>
-                        IMPORTA.
-
-                    </h2>
-
-                    <p>
-
-                        Cada componente cumple una función
-                        fundamental dentro del instrumento.
-                        Su correcta elección determina
-                        el carácter del sonido.
-
-                    </p>
-
-                </div>
-
-                <div class="pieces-right">
-
-                    <article class="piece-item">
-
-                        <span>
-
-                            01
-
-                        </span>
-
-                        <h3>
-
-                            Cejuela
-
-                        </h3>
-
-                    </article>
-
-                    <article class="piece-item">
-
-                        <span>
-
-                            02
-
-                        </span>
-
-                        <h3>
-
-                            Diapasón
-
-                        </h3>
-
-                    </article>
-
-                    <article class="piece-item">
-
-                        <span>
-
-                            03
-
-                        </span>
-
-                        <h3>
-
-                            Trastes
-
-                        </h3>
-
-                    </article>
-
-                    <article class="piece-item">
-
-                        <span>
-
-                            04
-
-                        </span>
-
-                        <h3>
-
-                            Puente
-
-                        </h3>
-
-                    </article>
-
-                    <article class="piece-item">
-
-                        <span>
-
-                            05
-
-                        </span>
-
-                        <h3>
-
-                            Tapa Armónica
-
-                        </h3>
-
-                    </article>
-
-                    <article class="piece-item">
-
-                        <span>
-
-                            06
-
-                        </span>
-
-                        <h3>
-
-                            Micrófonos
-
-                        </h3>
-
-                    </article>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-
-
-
-        <!--==========================================
-                    VIDEO
-        ===========================================-->
-
-        <section id="video-section" class="video-section">
-
-            <div class="video-overlay">
-
-                <div class="container video-content">
-
-                    <div class="video-text">
-
-                        <span>
-
-                            05
-
-                        </span>
-
-                        <h2>
-
-                            NO FABRICAMOS<br>
-                            INSTRUMENTOS.<br>
-
-                            CREAMOS UN<br>
-                            LEGADO ÚNICO.
-
-                        </h2>
-
-                        <p>
-
-                            Cada guitarra nace después
-                            de cientos de decisiones.
-                            Ninguna pieza es colocada
-                            por casualidad.
-
-                        </p>
-
+                    <div class="content-right">
+                        <img src="assets/proceso-seleccion.jpg" alt="Selección de maderas" class="placeholder-img">
                     </div>
+                </div>
+            </div>
 
-                    <div class="video-player">
-
-                        <video
-                            autoplay
-                            muted
-                            loop
-                            playsinline>
-
-                            <source
-                                src="assets/video/taller.mp4"
-                                type="video/mp4">
-
-                        </video>
-
+            <!-- Item 02 -->
+            <div class="accordion-item" data-index="02">
+                <div class="accordion-header">
+                    <span class="number">02</span>
+                    <h2 class="header-title">DISEÑO</h2>
+                </div>
+                <div class="accordion-content">
+                    <div class="content-left">
+                        <h3>02. DISEÑO</h3>
+                        <p class="description">Planificación estructural y ergonomía avanzada para un rendimiento acústico y comodidad óptima.</p>
+                        <ul class="items-list">
+                            <li>• PLANOS DETALLADOS</li>
+                            <li>• ESPESORES CRÍTICOS</li>
+                            <li>• ERGONOMÍA AVANZADA</li>
+                        </ul>
                     </div>
-
+                    <div class="content-right">
+                        <img src="assets/proceso-diseno.jpg" alt="Diseño de planos" class="placeholder-img">
+                    </div>
                 </div>
-
             </div>
 
-        </section>
-```
-```html
-        <!--==========================================
-                    TESTIMONIOS
-        ===========================================-->
-
-        <section class="testimonials">
-
-            <div class="container">
-
-                <div class="section-header light">
-
-                    <span class="section-number">
-
-                        06
-
-                    </span>
-
-                    <span class="section-title">
-
-                        Testimonios
-
-                    </span>
-
+            <!-- Item 03 -->
+            <div class="accordion-item" data-index="03">
+                <div class="accordion-header">
+                    <span class="number">03</span>
+                    <h2 class="header-title">CONSTRUCCIÓN</h2>
                 </div>
-
-                <div class="testimonial-header">
-
-                    <h2>
-
-                        LO QUE DICEN<br>
-                        QUIENES TOCAN.
-
-                    </h2>
-
-                    <p>
-
-                        Cada instrumento construido y cada curso
-                        finalizado representa una historia distinta.
-                        Estas son algunas experiencias de músicos
-                        y estudiantes que pasaron por el taller.
-
-                    </p>
-
+                <div class="accordion-content">
+                    <div class="content-left">
+                        <h3>03. CONSTRUCCIÓN</h3>
+                        <p class="description">Ensamble artesanal preciso utilizando colas tradicionales y técnicas de unión perfectas.</p>
+                        <ul class="items-list">
+                            <li>• ENSAMBLE MANUAL</li>
+                            <li>• VARETAJE ARMÓNICO</li>
+                            <li>• AJUSTE MILLIMÉTRICO</li>
+                        </ul>
+                    </div>
+                    <div class="content-right">
+                        <img src="assets/proceso-construccion.jpg" alt="Construcción manual" class="placeholder-img">
+                    </div>
                 </div>
+            </div>
 
-                <div class="testimonial-grid">
-
-                    <article class="testimonial-card">
-
-                        <span>"</span>
-
-                        <p>
-
-                            Construir mi primera guitarra cambió por
-                            completo mi forma de entender el instrumento.
-                            El nivel del taller superó todas mis expectativas.
-
-                        </p>
-
-                        <div>
-
-                            <strong>
-
-                                Martín Rivas
-
-                            </strong>
-
-                            <small>
-
-                                Alumno · Curso Inicial
-
-                            </small>
-
-                        </div>
-
-                    </article>
-
-                    <article class="testimonial-card">
-
-                        <span>"</span>
-
-                        <p>
-
-                            Restauraron una guitarra que llevaba años
-                            guardada. Hoy volvió a sonar incluso mejor
-                            que cuando la compré.
-
-                        </p>
-
-                        <div>
-
-                            <strong>
-
-                                Laura Cáceres
-
-                            </strong>
-
-                            <small>
-
-                                Música Profesional
-
-                            </small>
-
-                        </div>
-
-                    </article>
-
-                    <article class="testimonial-card">
-
-                        <span>"</span>
-
-                        <p>
-
-                            El enfoque artesanal y la dedicación por
-                            cada detalle hacen que cada instrumento
-                            sea completamente único.
-
-                        </p>
-
-                        <div>
-
-                            <strong>
-
-                                Diego Fernández
-
-                            </strong>
-
-                            <small>
-
-                                Guitarrista
-
-                            </small>
-
-                        </div>
-
-                    </article>
-
+            <!-- Item 04 -->
+            <div class="accordion-item" data-index="04">
+                <div class="accordion-header">
+                    <span class="number">04</span>
+                    <h2 class="header-title">ACABADO</h2>
                 </div>
-
-            </div>
-
-        </section>
-
-
-
-
-
-        <!--==========================================
-                    GALERÍA
-        ===========================================-->
-
-        <section class="gallery">
-
-            <div class="container">
-
-                <div class="gallery-header">
-
-                    <span class="section-number">
-
-                        07
-
-                    </span>
-
-                    <h2>
-
-                        IMÁGENES<br>
-
-                        DEL PROCESO.
-
-                    </h2>
-
+                <div class="accordion-content">
+                    <div class="content-left">
+                        <h3>04. ACABADO</h3>
+                        <p class="description">Tratamiento de superficies mediante gomalaca a muñequilla para potenciar la acústica natural.</p>
+                        <ul class="items-list">
+                            <li>• GOMALACA NATURAL</li>
+                            <li>• PULIDO CRISTALINO</li>
+                            <li>• PROTECCIÓN DURADERA</li>
+                        </ul>
+                    </div>
+                    <div class="content-right">
+                        <img src="assets/proceso-acabado.jpg" alt="Acabado final" class="placeholder-img">
+                    </div>
                 </div>
-
-                <div class="gallery-grid">
-
-                    <figure>
-
-                        <img src="assets/galeria-1.jpg"
-                            alt="Trabajo en madera">
-
-                    </figure>
-
-                    <figure>
-
-                        <img src="assets/galeria-2.jpg"
-                            alt="Herramientas">
-
-                    </figure>
-
-                    <figure>
-
-                        <img src="assets/galeria-3.jpg"
-                            alt="Construcción">
-
-                    </figure>
-
-                    <figure>
-
-                        <img src="assets/galeria-4.jpg"
-                            alt="Acabado">
-
-                    </figure>
-
-                    <figure>
-
-                        <img src="assets/galeria-5.jpg"
-                            alt="Lijado">
-
-                    </figure>
-
-                    <figure>
-
-                        <img src="assets/galeria-6.jpg"
-                            alt="Detalle">
-
-                    </figure>
-
-                </div>
-
             </div>
-
-        </section>
-
-
-
-
-
-        <!--==========================================
-                    CTA FINAL
-        ===========================================-->
-
-        <section id="contacto" class="cta">
-
-            <div class="container">
-
-                <span>
-
-                    Comenzá hoy mismo.
-
-                </span>
-
-                <h2>
-
-                    TU PRÓXIMO<br>
-
-                    INSTRUMENTO<br>
-
-                    COMIENZA AQUÍ.
-
-                </h2>
-
-                <p>
-
-                    Ya sea construyendo tu primera guitarra,
-                    restaurando un instrumento o aprendiendo
-                    el oficio desde cero.
-
-                </p>
-
-                <a href="#" class="button-primary">
-
-                    Inscribirme al Taller
-
-                </a>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-
-
-
-    <!--==========================================
-                    FOOTER
-    ===========================================-->
-
-    <footer class="footer">
-
-        <div class="container footer-grid">
-
-            <div class="footer-brand">
-
-                <h3>
-
-                    TRASTES
-
-                </h3>
-
-                <p>
-
-                    Luthería Artesanal.<br>
-
-                    Construcción · Restauración · Cursos
-
-                </p>
-
-            </div>
-
-            <div>
-
-                <h4>
-
-                    Navegación
-
-                </h4>
-
-                <ul>
-
-                    <li><a href="#metodo">Método</a></li>
-
-                    <li><a href="#proceso">Proceso</a></li>
-
-                    <li><a href="#cursos">Cursos</a></li>
-
-                    <li><a href="#contacto">Contacto</a></li>
-
-                </ul>
-
-            </div>
-
-            <div>
-
-                <h4>
-
-                    Contacto
-
-                </h4>
-
-                <ul>
-
-                    <li>info@trastes.com</li>
-
-                    <li>+54 11 5555-5555</li>
-
-                    <li>Buenos Aires</li>
-
-                </ul>
-
-            </div>
-
-            <div>
-
-                <h4>
-
-                    Redes
-
-                </h4>
-
-                <ul>
-
-                    <li><a href="#">Instagram</a></li>
-
-                    <li><a href="#">Behance</a></li>
-
-                    <li><a href="#">YouTube</a></li>
-
-                </ul>
-
-            </div>
-
         </div>
+    </section>
 
-        <div class="footer-bottom">
+    <!-- 3. SECCIÓN: DE LA IDEA AL INSTRUMENTO (LÍNEA DE TIEMPO / STEPS) -->
+    <section class="timeline-section">
+        <h2 class="section-title-large">DE LA IDEA AL INSTRUMENTO</h2>
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-num">01</div>
+                <h4>Solicitud</h4>
+                <p>Valoración de perfil y disponibilidad inicial.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">02</div>
+                <h4>Diagnóstico</h4>
+                <p>Determinación de metas y metas del luthier.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">03</div>
+                <h4>Presupuesto</h4>
+                <p>Propuesta de materiales y cotización.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">04</div>
+                <h4>Intervención</h4>
+                <p>Proceso constructivo mano a mano.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">05</div>
+                <h4>Entrega</h4>
+                <p>Puesta a punto final y prueba de sonido.</p>
+            </div>
+        </div>
+    </section>
 
-            <div class="container">
-
-                <p>
-
-                    © 2026 Trastes — Todos los derechos reservados.
-
-                </p>
-
+    <!-- 4. SECCIÓN: DEL TALLER A TUS MANOS (GALERÍA DESTACADA INTERACTIVA) -->
+    <section class="taller-manos-section">
+        <h2 class="section-title-large">DEL TALLER A TUS MANOS<br><span class="subtitle">GUIAMOS TU TALENTO.</span></h2>
+        
+        <div class="interactive-gallery-container">
+            <!-- Bloque izquierdo fijo del Curso Destacado Requerido -->
+            <div class="featured-course-info">
+                <h3>APRENDE LUTHERÍA DESDE CERO.</h3>
+                <p>Cursos presenciales para construir, reparar y calibrar con técnicas de luthería profesional.</p>
+                <a href="#cursos" class="btn-dark">Ver más</a>
             </div>
 
+            <!-- Grilla interactiva armónica (Group 28) -->
+            <div class="courses-grid">
+                <!-- Curso 1 (Activo por defecto) -->
+                <div class="course-item active" data-title="Curso de Guitarra Clásica" data-desc="Construcción integral desde la plantilla hasta el barnizado.">
+                    <img src="assets/curso-guitarra.jpg" alt="Curso Guitarra" class="placeholder-img">
+                    <div class="course-label">TITULO DE CURSO</div>
+                </div>
+                <!-- Curso 2 -->
+                <div class="course-item" data-title="Curso de Instrumentos de Arco" data-desc="Técnicas avanzadas para violín, viola y violonchelo.">
+                    <img src="assets/curso-violin.jpg" alt="Curso Violín" class="placeholder-img">
+                    <div class="course-label">TITULO DE CURSO</div>
+                </div>
+                <!-- Curso 3 -->
+                <div class="course-item" data-title="Calibración y Mantenimiento" data-desc="Ajuste óptimo de acción, almas, cejuelas y electrónica.">
+                    <img src="assets/curso-calibracion.jpg" alt="Curso Calibración" class="placeholder-img">
+                    <div class="course-label">TITULO DE CURSO</div>
+                </div>
+            </div>
         </div>
+    </section>
 
-    </footer>
+    <!-- 5. SECCIÓN: CADA PIEZA IMPORTA (FORMULARIO) -->
+    <section class="contacto-formulario-section">
+        <div class="form-container">
+            <h3>CADA PIEZA IMPORTA.</h3>
+            <form action="#" class="minimal-form">
+                <div class="form-row">
+                    <input type="text" placeholder="Nombre completo" required>
+                    <input type="email" placeholder="Correo electrónico" required>
+                    <input type="tel" placeholder="Teléfono" required>
+                </div>
+                <button type="submit" class="btn-submit">Enviar Datos</button>
+            </form>
+        </div>
+    </section>
 
-    <script src="js/main.js"></script>
+    <!-- 6. SECCIÓN INVERSIBLE: VIDEO + MANIFESTO (CAMBIO DINÁMICO DE COLOR AL HACER SCROLL) -->
+    <section class="video-manifesto-section" id="scroll-trigger-section">
+        <div class="manifesto-wrapper">
+            <div class="manifesto-text-side">
+                <h2 class="manifesto-title">NO FABRICAMOS INSTRUMENTOS.<br>CREAMOS UN LEGADO ÚNICO.</h2>
+                <div class="cta-mini-block">
+                    <p>¿Listo para dar vida a tu instrumento?</p>
+                    <a href="#inscripcion" class="btn-outline">Inscribirme al taller</a>
+                </div>
+            </div>
+            <div class="manifesto-video-side">
+                <div class="video-container-box">
+                    <div class="video-placeholder-overlay">VIDEO*</div>
+                    <!-- Cambiar por etiqueta <video src="assets/video-legacy.mp4" autoplay loop muted></video> cuando exista -->
+                    <div class="video-bg-fallback"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- 7. SECCIÓN: LO QUE DICEN QUIENES TOCAN (TESTIMONIALS SLIDER/GRID) -->
+    <section class="testimonials-section">
+        <h2 class="section-title-large">LO QUE DICEN QUIENES TOCAN</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="quote">"El enfoque en el detalle y la selección de maderas cambió por completo mi entendimiento del sonido. Construir mi propia guitarra fue una experiencia mística."</p>
+                <div class="author">- CARLOS GÓMEZ <span class="instrument">/ Guitarrista Profesional</span></div>
+            </div>
+            <div class="testimonial-card">
+                <p class="quote">"Un taller único donde la paciencia del maestro y la calidad de las herramientas te guían paso a paso de manera profesional."</p>
+                <div class="author">- MARÍA HERNÁNDEZ <span class="instrument">/ Alumna de Luthería</span></div>
+            </div>
+            <div class="testimonial-card">
+                <p class="quote">"No es solo hacer un instrumento, es entender su alma y cómo proyectar la voz de la madera."</p>
+                <div class="author">- MATEO ESPINOZA <span class="instrument">/ Músico & Luthier</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. SECCIÓN: IMÁGENES DEL PROCESO (FOOTER GRID) -->
+    <section class="proceso-gallery-section">
+        <h3 class="gallery-title">IMÁGENES DEL PROCESO</h3>
+        <div class="footer-gallery-grid">
+            <div class="gallery-item-box"><img src="assets/gallery-1.jpg" alt="Proceso 1" class="placeholder-img"></div>
+            <div class="gallery-item-box"><img src="assets/gallery-2.jpg" alt="Proceso 2" class="placeholder-img"></div>
+            <div class="gallery-item-box"><img src="assets/gallery-3.jpg" alt="Proceso 3" class="placeholder-img"></div>
+            <div class="gallery-item-box"><img src="assets/gallery-4.jpg" alt="Proceso 4" class="placeholder-img"></div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
 </body>
-
 </html>
-```
