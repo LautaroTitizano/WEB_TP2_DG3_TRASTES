@@ -550,7 +550,7 @@ ul  { list-style: none; }
 }
 .arte__item-text {
   padding-right: 60px;
-  padding-top: 24px;
+  padding-top: 28px;
 }
 .arte__item-text h3 {
   font-family: var(--font-display);
