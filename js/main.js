@@ -293,6 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  
+  /* Nota: los botones "Ver detalles" ahora son enlaces <a target="_blank">
+     directos a la página de detalle del curso — ya no abren un modal. */
 
 });
