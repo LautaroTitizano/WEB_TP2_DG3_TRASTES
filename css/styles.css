@@ -512,50 +512,8 @@ h1, h2, h3, h4 {
   .video-section__text{ border-right:none; border-bottom: var(--line); padding: var(--space-xl) var(--space-md); }
 }
 
-/* ══════════════════════════════════════════════════════════
-   SELECTOR DE CURSOS — Elegí tu camino
-   ══════════════════════════════════════════════════════════ */
-.selector-cursos{ border-bottom: var(--line); }
-.selector-cursos__header{ padding: var(--space-xl) var(--space-lg) var(--space-md); }
-.selector-cursos__sub{ color: var(--muted); font-size:0.85rem; margin-top: var(--space-sm); }
-.selector-cursos__filters{ display:flex; flex-wrap:wrap; gap: 0; padding: 0 var(--space-lg) var(--space-lg); }
-.filter-btn{
-  font-family: var(--font-mono); font-size:0.74rem; font-weight:700; letter-spacing:0.05em; text-transform:uppercase;
-  padding: 9px 16px; border: var(--line); margin: 0 -1px -1px 0;
-  background: var(--paper); transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
-}
-.filter-btn.active, .filter-btn:hover{ background: var(--ink); color: var(--paper); }
 
-.selector-cursos__list{ border-top: var(--line); }
-.selector-card{
-  position: relative;
-  display:grid; grid-template-columns: 1.1fr 1fr;
-  border-bottom: var(--line);
-  transition: opacity var(--dur) var(--ease), max-height var(--dur) var(--ease);
-}
-.selector-card[data-hidden]{ display:none; }
-.selector-card__left{ padding: var(--space-lg); border-right: var(--line); }
-.selector-card__nivel{
-  display:inline-block; font-size:0.68rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
-  border: var(--line); padding: 4px 10px; margin-bottom: var(--space-md);
-}
-.nivel-inicial{ background: var(--accent); color:#fff; border-color: var(--ink); }
-.nivel-intermedio{ background: var(--paper-2); }
-.nivel-avanzado{ background: var(--ink); color: var(--paper); }
-.nivel-restauracion{ background: var(--paper); }
-.selector-card__title{ font-size: clamp(1.2rem,2.2vw,1.7rem); margin-bottom: var(--space-md); }
-.selector-card__meta{ display:flex; gap: var(--space-md); flex-wrap:wrap; font-size:0.76rem; color: var(--muted); }
-.selector-card__right{ padding: var(--space-lg); display:flex; flex-direction:column; justify-content:space-between; gap: var(--space-md); }
-.selector-card__right p{ font-size:0.85rem; color: var(--muted); }
-.selector-card__btn{ align-self:flex-start; }
-.selector-card__badge{
-  position:absolute; top:0; right:0; background: var(--ink); color: var(--paper);
-  font-size:0.68rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding: 6px 12px;
-}
-@media (max-width: 768px){
-  .selector-card{ grid-template-columns: 1fr; }
-  .selector-card__left{ border-right:none; border-bottom: var(--line); }
-}
+
 
 /* ══════════════════════════════════════════════════════════
    CTA BANNER — ¿Listo para dar vida a tu instrumento?
