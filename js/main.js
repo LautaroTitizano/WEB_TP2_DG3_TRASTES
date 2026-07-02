@@ -4,6 +4,61 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  /* ── 0. HERO — título con efecto de tipeo ──────────────── */
+  const heroTitle = document.querySelector('.hero__title[data-typewriter]');
+  if (heroTitle) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let lines = [];
+    try { lines = JSON.parse(heroTitle.dataset.typewriter); } catch (e) { lines = []; }
+    const fullText = heroTitle.getAttribute('aria-label') || lines.join(' ');
+
+    if (reduceMotion || !lines.length) {
+      heroTitle.innerHTML = lines.map((l, i) =>
+        `<span class="typed-line${i === lines.length - 1 ? ' accent' : ''}">${l}</span>`
+      ).join('');
+    } else {
+      heroTitle.innerHTML = '';
+      heroTitle.classList.add('typing-active');
+      heroTitle.setAttribute('role', 'text');
+
+      const speed = 42;      // ms por caracter
+      const linePause = 140; // pausa entre líneas
+      let lineIndex = 0, charIndex = 0;
+      let currentLineEl = null;
+      let cursorEl = null;
+
+      const startLine = () => {
+        currentLineEl = document.createElement('span');
+        currentLineEl.className = 'typed-line' + (lineIndex === lines.length - 1 ? ' accent' : '');
+        cursorEl = document.createElement('span');
+        cursorEl.className = 'typed-cursor';
+        cursorEl.textContent = '\u00A0';
+        currentLineEl.appendChild(cursorEl);
+        heroTitle.appendChild(currentLineEl);
+        charIndex = 0;
+        typeChar();
+      };
+
+      const typeChar = () => {
+        const line = lines[lineIndex];
+        if (charIndex < line.length) {
+          cursorEl.insertAdjacentText('beforebegin', line[charIndex]);
+          charIndex++;
+          setTimeout(typeChar, speed);
+        } else {
+          lineIndex++;
+          if (lineIndex < lines.length) {
+            setTimeout(startLine, linePause);
+          } else {
+            setTimeout(() => { cursorEl.remove(); heroTitle.classList.remove('typing-active'); }, 900);
+          }
+        }
+      };
+
+      setTimeout(startLine, 300);
+    }
+  }
+
   /* ── 1. NAV: scroll effect ─────────────────────────────── */
   const nav = document.querySelector('.nav');
   if (nav) {
@@ -24,24 +79,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.12 });
   revealEls.forEach(el => revealObs.observe(el));
 
-  /* ── 3. EL ARTE DETRÁS DEL SONIDO — Acordeón ──────────── */
+  /* ── 3. EL ARTE DETRÁS DEL SONIDO — Acordeón (una sola apertura) ── */
   const arteItems = document.querySelectorAll('.arte__item');
   arteItems.forEach(item => {
     const header = item.querySelector('.arte__item-header');
-    const body   = item.querySelector('.arte__item-body');
-    const inner  = item.querySelector('.arte__item-body-inner');
 
     header.addEventListener('click', () => {
       const isOpen = item.classList.contains('open');
       arteItems.forEach(i => {
         i.classList.remove('open');
         i.querySelector('.arte__item-header').setAttribute('aria-expanded', 'false');
-        i.querySelector('.arte__item-body').style.setProperty('--body-h', '0px');
       });
       if (!isOpen) {
         item.classList.add('open');
         header.setAttribute('aria-expanded', 'true');
-        body.style.setProperty('--body-h', inner.offsetHeight + 'px');
       }
     });
 
@@ -78,16 +129,18 @@ document.addEventListener('DOMContentLoaded', () => {
     videoObs.observe(videoSection);
   }
 
-  /* ── 6. VIDEO — play/pause ─────────────────────────────── */
+  /* ── 6. VIDEO — luce como póster, reproduce al hacer clic ─ */
   const videoWrapper = document.querySelector('.video-wrapper');
   const videoEl      = document.querySelector('.video-wrapper video');
-  const playBtn      = document.querySelector('.video-play-btn');
-  if (videoWrapper && videoEl && playBtn) {
+  if (videoWrapper && videoEl) {
     videoWrapper.addEventListener('click', () => {
-      if (videoEl.paused) { videoEl.play(); playBtn.style.opacity = '0'; }
-      else { videoEl.pause(); playBtn.style.opacity = '1'; }
+      if (videoEl.paused) {
+        videoEl.muted = false;
+        videoEl.play().catch(() => { videoEl.muted = true; videoEl.play(); });
+      } else {
+        videoEl.pause();
+      }
     });
-    videoEl.addEventListener('ended', () => { playBtn.style.opacity = '1'; });
   }
 
   /* ── 7. CURSOS — drag scroll (carrusel) ────────────────── */
@@ -137,16 +190,23 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.25 });
   document.querySelectorAll('.stat-item').forEach(el => statsObs.observe(el));
 
-  /* ── 9. PROCESO steps — hover highlight ────────────────── */
-  document.querySelectorAll('.proceso__step').forEach(step => {
-    step.addEventListener('mouseenter', () => {
-      document.querySelectorAll('.proceso__step').forEach(s => s.style.opacity = '0.4');
-      step.style.opacity = '1';
+  /* ── 9. PROCESO steps — línea de tiempo con nota musical ─ */
+  const procesoStepsWrap = document.querySelector('.proceso__steps');
+  const procesoSteps = document.querySelectorAll('.proceso__step');
+  if (procesoStepsWrap && procesoSteps.length) {
+    procesoSteps.forEach(step => {
+      step.addEventListener('click', () => {
+        const wasActive = step.classList.contains('active');
+        procesoSteps.forEach(s => s.classList.remove('active'));
+        if (!wasActive) {
+          step.classList.add('active');
+          procesoStepsWrap.classList.add('has-active');
+        } else {
+          procesoStepsWrap.classList.remove('has-active');
+        }
+      });
     });
-    step.addEventListener('mouseleave', () => {
-      document.querySelectorAll('.proceso__step').forEach(s => s.style.opacity = '1');
-    });
-  });
+  }
 
   /* ── 10. PÚAS DE MADERA — panel "código" abre/cierra ───── */
   const pickCards = document.querySelectorAll('.pick-card');
@@ -208,49 +268,73 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
   }
 
-  /* ── 12. RUIDO TÉCNICO — solo en secciones oscuras ─────── */
-  function createDarkStatic(section) {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const canvas = document.createElement('canvas');
-    canvas.className = 'dark-static-canvas';
-    canvas.setAttribute('aria-hidden', 'true');
-    section.appendChild(canvas);
-    const ctx = canvas.getContext('2d');
-    const resize = () => {
-      canvas.width = Math.ceil(section.offsetWidth / 4);
-      canvas.height = Math.ceil(section.offsetHeight / 4);
-    };
-    resize();
-    canvas.style.cssText = `position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:0.02;mix-blend-mode:screen;`;
-    let isVisible = false, animId = null;
-    const draw = () => {
-      const w = canvas.width, h = canvas.height;
-      if (!w || !h) return;
-      const imgData = ctx.createImageData(w, h);
-      const d = imgData.data;
-      for (let i = 0; i < d.length; i += 4) {
-        const v = Math.random() * 255 | 0;
-        d[i] = d[i+1] = d[i+2] = v; d[i+3] = 255;
-      }
-      ctx.putImageData(imgData, 0, 0);
-      ctx.fillStyle = 'rgba(0,0,0,0.36)';
-      for (let y = 0; y < h; y += 3) ctx.fillRect(0, y, w, 1);
-    };
-    const loop = () => { if (isVisible) { draw(); animId = requestAnimationFrame(loop); } };
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        isVisible = e.isIntersecting;
-        if (isVisible) { resize(); draw(); animId = requestAnimationFrame(loop); }
-        else if (animId) cancelAnimationFrame(animId);
-      });
-    }, { threshold: 0.05 });
-    obs.observe(section);
-    window.addEventListener('resize', () => { if (isVisible) resize(); }, { passive: true });
+  /* ── 12. GRANO SUTIL + LUZ QUE SIGUE EL MOUSE ──────────── */
+  /* Reemplaza el antiguo efecto "TV" (ruido + scanlines). Ahora es un grano
+     fijo muy sutil, más una luz difuminada que aparece al pasar el cursor. */
+  function createGrainAndSpotlight(section) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Grano
+    if (!reduceMotion) {
+      const canvas = document.createElement('canvas');
+      canvas.className = 'dark-static-canvas';
+      canvas.setAttribute('aria-hidden', 'true');
+      section.appendChild(canvas);
+      const ctx = canvas.getContext('2d');
+      const resize = () => {
+        canvas.width = Math.ceil(section.offsetWidth / 4);
+        canvas.height = Math.ceil(section.offsetHeight / 4);
+      };
+      resize();
+      const draw = () => {
+        const w = canvas.width, h = canvas.height;
+        if (!w || !h) return;
+        const imgData = ctx.createImageData(w, h);
+        const d = imgData.data;
+        for (let i = 0; i < d.length; i += 4) {
+          const v = Math.random() * 255 | 0;
+          d[i] = d[i+1] = d[i+2] = v; d[i+3] = 255;
+        }
+        ctx.putImageData(imgData, 0, 0);
+      };
+      let isVisible = false, frame = 0, animId = null;
+      const loop = () => {
+        if (isVisible) {
+          frame++;
+          if (frame % 4 === 0) draw(); // redibuja cada pocos frames: grano fijo, no parpadeante
+          animId = requestAnimationFrame(loop);
+        }
+      };
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          isVisible = e.isIntersecting;
+          if (isVisible) { resize(); draw(); animId = requestAnimationFrame(loop); }
+          else if (animId) cancelAnimationFrame(animId);
+        });
+      }, { threshold: 0.05 });
+      obs.observe(section);
+      window.addEventListener('resize', () => { if (isVisible) resize(); }, { passive: true });
+    }
+
+    // Luz difuminada que sigue el mouse
+    const spot = document.createElement('div');
+    spot.className = 'mouse-spot';
+    spot.setAttribute('aria-hidden', 'true');
+    section.appendChild(spot);
+    section.addEventListener('mousemove', (e) => {
+      const rect = section.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      spot.style.setProperty('--mx', x + '%');
+      spot.style.setProperty('--my', y + '%');
+      spot.classList.add('active');
+    });
+    section.addEventListener('mouseleave', () => spot.classList.remove('active'));
   }
   const statSection = document.querySelector('.stats');
   const videoSection2 = document.querySelector('.video-section');
-  if (statSection) createDarkStatic(statSection);
-  if (videoSection2) createDarkStatic(videoSection2);
+  if (statSection) createGrainAndSpotlight(statSection);
+  if (videoSection2) createGrainAndSpotlight(videoSection2);
 
   /* ── 13. FAQ — Acordeón ─────────────────────────────────── */
   const faqItems = document.querySelectorAll('.faq__item');
@@ -293,7 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* Nota: los botones "Ver detalles" ahora son enlaces <a target="_blank">
-     directos a la página de detalle del curso — ya no abren un modal. */
+  /* Nota: las cards de "Ver detalles" son enlaces <a> normales (misma pestaña),
+     así el botón "atrás" del navegador funciona como en cualquier sitio. */
 
 });
