@@ -8,9 +8,8 @@
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700;900&display=swap" rel="stylesheet" />
-  <!-- DIN Condensed via Google Fonts aproximation -->
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet" />
+  <!-- Nata Sans → hero y demás títulos. Inter → texto de cuerpo y UI. -->
+  <link href="https://fonts.googleapis.com/css2?family=Nata+Sans:wght@400..900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 </head>
 <body>
 
@@ -73,22 +72,75 @@
   </div>
 
   <div class="hero__content">
-    <div class="hero__row">
+    <div class="hero__block">
       <h1 class="hero__title">
         INSTRUMENTOS<br>
-        <span class="hero__title-accent">DEL ALMA.</span>
+        DEL <span class="hero__title-accent">ALMA</span>
       </h1>
-
-      <div class="hero__aside">
-        <p class="hero__sub">
-          Construcción artesanal, restauración profesional y formación
-          completa para quienes desean aprender
-        </p>
-        <a href="#cursos" class="btn btn-outline-light hero__cta">Explorar taller <span aria-hidden="true">↘</span></a>
-      </div>
+      <p class="hero__sub">
+        Construcción artesanal y restauración<br>
+        profesional para dejar un <strong>legado</strong>.
+      </p>
+      <a href="#cursos" class="btn btn-outline-light hero__cta">Explorar taller <span aria-hidden="true">↘</span></a>
     </div>
   </div>
 </section>
+
+  <!-- ══ PORTAFOLIO INMERSIVO — Curtain Reveal ═══════════
+       3 paneles a pantalla completa apilados con scroll.
+       Cada panel queda fijo (sticky) y el siguiente lo tapa
+       al deslizarse hacia arriba. 100% CSS, sin JS.
+       La caja de texto usa el mismo padding que .hero__content
+       en los 3 paneles, así queda en las mismas coordenadas. ══ -->
+  <section class="curtain" id="portafolio" aria-label="Portafolio inmersivo del taller">
+
+    <!-- Panel 1 · imagen -->
+    <div class="curtain__item">
+      <div class="curtain__sticky">
+        <img class="curtain__media curtain__media--img" src="assets/images/proceso_03.jpg" alt="Construcción del instrumento en el banco de trabajo" loading="lazy" />
+        <div class="curtain__overlay" aria-hidden="true"></div>
+        <div class="curtain__content">
+          <div class="curtain__block">
+            <span class="curtain__eyebrow">★ El oficio</span>
+            <h2 class="curtain__title">Cada corte<br>es una decisión</h2>
+            <p class="curtain__desc">Sin moldes en serie ni atajos. Cada instrumento nace de una madera elegida a mano y de horas de formón, lija y paciencia.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 2 · imagen -->
+    <div class="curtain__item">
+      <div class="curtain__sticky">
+        <img class="curtain__media curtain__media--img" src="assets/images/proceso_04.jpg" alt="Acabado final del instrumento" loading="lazy" />
+        <div class="curtain__overlay" aria-hidden="true"></div>
+        <div class="curtain__content">
+          <div class="curtain__block">
+            <span class="curtain__eyebrow">★ La forma</span>
+            <h2 class="curtain__title">La madera<br>encuentra su cuerpo</h2>
+            <p class="curtain__desc">Cuerpo, mástil y trastes se ensamblan con tolerancias de milésimas. Acá el instrumento deja de ser materia prima y empieza a ser tuyo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 3 · video -->
+    <div class="curtain__item curtain__item--last">
+      <div class="curtain__sticky">
+        <video class="curtain__media curtain__media--video" src="assets/video/taller-reel.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
+        <div class="curtain__overlay" aria-hidden="true"></div>
+        <div class="curtain__content">
+          <div class="curtain__block">
+            <span class="curtain__eyebrow">★ El sonido</span>
+            <h2 class="curtain__title">Y por fin,<br>suena</h2>
+            <p class="curtain__desc">El último ajuste de intonación y el instrumento cobra vida. Ahí termina el oficio del luthier y empieza el tuyo.</p>
+            <a href="#cursos" class="btn btn-outline-light">Ver cursos <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
 
   <!-- ══ 01 · QUIÉNES SOMOS ═══════════════════════════════ -->
   <section class="nosotros" id="nosotros" aria-label="Quiénes somos">
@@ -128,9 +180,9 @@
       <p class="showcase__intro-copy">Un recorrido real por el proceso: de la madera en bruto al instrumento terminado.</p>
     </div>
 
-    <div class="showcase__pin-wrap" data-frames="4">
-      <div class="showcase__pin">
-        <div class="showcase__frame is-active" data-index="0">
+    <div class="showcase__list">
+      <div class="showcase__item">
+        <div class="showcase__sticky">
           <img src="assets/images/galeria_01.jpg" alt="El taller: banco de trabajo con luz natural" class="showcase__img" loading="lazy" />
           <div class="showcase__overlay"></div>
           <div class="showcase__caption">
@@ -139,7 +191,9 @@
             <p>Luz natural, banco de trabajo. Aquí empieza todo.</p>
           </div>
         </div>
-        <div class="showcase__frame" data-index="1">
+      </div>
+      <div class="showcase__item">
+        <div class="showcase__sticky">
           <img src="assets/images/galeria_03.jpg" alt="Tallado a mano con gubias y formones" class="showcase__img" loading="lazy" />
           <div class="showcase__overlay"></div>
           <div class="showcase__caption">
@@ -148,7 +202,9 @@
             <p>Gubias y formones. Cada viruta es una decisión sonora.</p>
           </div>
         </div>
-        <div class="showcase__frame" data-index="2">
+      </div>
+      <div class="showcase__item">
+        <div class="showcase__sticky">
           <img src="assets/images/galeria_02.jpg" alt="Encolado y prensado en frío" class="showcase__img" loading="lazy" />
           <div class="showcase__overlay"></div>
           <div class="showcase__caption">
@@ -157,7 +213,9 @@
             <p>Prensas en frío. 24 horas de silencio y presión exacta.</p>
           </div>
         </div>
-        <div class="showcase__frame" data-index="3">
+      </div>
+      <div class="showcase__item">
+        <div class="showcase__sticky">
           <img src="assets/images/galeria_04.jpg" alt="Lacado y acabado final" class="showcase__img" loading="lazy" />
           <div class="showcase__overlay"></div>
           <div class="showcase__caption">
@@ -165,14 +223,6 @@
             <h3>Lacado</h3>
             <p>Nitrocelulosa de curado lento. La última piel del instrumento.</p>
           </div>
-        </div>
-
-        <!-- Puntos indicadores -->
-        <div class="showcase__dots" aria-hidden="true">
-          <span class="showcase__dot is-active"></span>
-          <span class="showcase__dot"></span>
-          <span class="showcase__dot"></span>
-          <span class="showcase__dot"></span>
         </div>
       </div>
     </div>
@@ -651,9 +701,6 @@
       <div class="video-wrapper" role="button" tabindex="0" aria-label="Reproducir video del taller">
         <video src="assets/images/video_thumb.mp4" poster="assets/images/video_thumb.jpg" loop muted playsinline preload="none"></video>
         <img class="video-thumb" src="assets/images/video_thumb.jpg" alt="Video del taller" style="display:none" loading="lazy" />
-      </div>
-    </div>
-  </section>
       </div>
     </div>
   </section>
