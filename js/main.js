@@ -1,95 +1,154 @@
 /* ============================================================
-   TRASTES — JavaScript principal (Exposed Grid system)
+   TRASTES — main.js v3.0
+   Vanilla JS · sin librerías externas
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ── 0. HERO — título con efecto de tipeo ──────────────── */
-  const heroTitle = document.querySelector('.hero__title[data-typewriter]');
-  if (heroTitle) {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let lines = [];
-    try { lines = JSON.parse(heroTitle.dataset.typewriter); } catch (e) { lines = []; }
-    const fullText = heroTitle.getAttribute('aria-label') || lines.join(' ');
+  /* ══════════════════════════════════════════════════════════
+   1. NAV — transparente sobre el hero, sólida al hacer scroll
+   ══════════════════════════════════════════════════════════ */
+const nav = document.getElementById('nav');
+const NAV_SOLID_THRESHOLD = 80; // px de scroll para pasar a fondo sólido
 
-    if (reduceMotion || !lines.length) {
-      heroTitle.innerHTML = lines.map((l, i) =>
-        `<span class="typed-line${i === lines.length - 1 ? ' accent' : ''}">${l}</span>`
-      ).join('');
-    } else {
-      heroTitle.innerHTML = '';
-      heroTitle.classList.add('typing-active');
-      heroTitle.setAttribute('role', 'text');
+const applyNavState = () => {
+  const scrolled = window.scrollY > NAV_SOLID_THRESHOLD;
+  nav.classList.toggle('nav--scrolled', scrolled);
+};
 
-      const speed = 42;      // ms por caracter
-      const linePause = 140; // pausa entre líneas
-      let lineIndex = 0, charIndex = 0;
-      let currentLineEl = null;
-      let cursorEl = null;
+// Aplica el estado inicial sin esperar scroll
+applyNavState();
 
-      const startLine = () => {
-        currentLineEl = document.createElement('span');
-        currentLineEl.className = 'typed-line' + (lineIndex === lines.length - 1 ? ' accent' : '');
-        cursorEl = document.createElement('span');
-        cursorEl.className = 'typed-cursor';
-        cursorEl.textContent = '\u00A0';
-        currentLineEl.appendChild(cursorEl);
-        heroTitle.appendChild(currentLineEl);
-        charIndex = 0;
-        typeChar();
-      };
+// Escucha el scroll con passive:true para no bloquear el render
+window.addEventListener('scroll', applyNavState, { passive: true });
 
-      const typeChar = () => {
-        const line = lines[lineIndex];
-        if (charIndex < line.length) {
-          cursorEl.insertAdjacentText('beforebegin', line[charIndex]);
-          charIndex++;
-          setTimeout(typeChar, speed);
-        } else {
-          lineIndex++;
-          if (lineIndex < lines.length) {
-            setTimeout(startLine, linePause);
-          } else {
-            setTimeout(() => { cursorEl.remove(); heroTitle.classList.remove('typing-active'); }, 900);
-          }
-        }
-      };
+  /* ══════════════════════════════════════════════════════════
+   1.5 · ASÍ SE TRABAJA — Galería con un solo sticky pin.
+        Un único elemento pinneado (robusto entre navegadores);
+        el frame visible se decide calculando el progreso de
+        scroll dentro de .showcase__pin-wrap.
+   ══════════════════════════════════════════════════════════ */
+const pinWrap = document.querySelector('.showcase__pin-wrap');
+if (pinWrap) {
+  const frames = pinWrap.querySelectorAll('.showcase__frame');
+  const dots   = pinWrap.querySelectorAll('.showcase__dot');
 
-      setTimeout(startLine, 300);
-    }
-  }
+  const updateShowcase = () => {
+    const rect = pinWrap.getBoundingClientRect();
+    const scrollable = rect.height - window.innerHeight;
+    if (scrollable <= 0) return;
+    const progress = Math.min(Math.max(-rect.top / scrollable, 0), 1);
+    const idx = Math.min(frames.length - 1, Math.floor(progress * frames.length));
 
-  /* ── 1. NAV: scroll effect ─────────────────────────────── */
-  const nav = document.querySelector('.nav');
-  if (nav) {
-    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 60);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  }
+    frames.forEach((f, i) => f.classList.toggle('is-active', i === idx));
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+  };
 
-  /* ── 2. REVEAL on scroll ───────────────────────────────── */
-  const revealEls = document.querySelectorAll('.reveal');
-  const revealObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        revealObs.unobserve(e.target);
-      }
+  updateShowcase();
+  window.addEventListener('scroll', updateShowcase, { passive: true });
+  window.addEventListener('resize', updateShowcase);
+}
+
+  /* ══════════════════════════════════════════════════════════
+   2. MENÚ HAMBURGUESA MOBILE — reemplazar el bloque completo
+   ══════════════════════════════════════════════════════════ */
+const burger      = document.getElementById('navBurger');
+const mobileMenu  = document.getElementById('mobileMenu');
+const mobileClose = document.getElementById('mobileClose');
+const mobileLinks = document.querySelectorAll('.mobile-menu__link');
+
+if (burger && mobileMenu) {
+
+  const openMenu = () => {
+    mobileMenu.classList.add('open');
+    burger.classList.add('open');
+    burger.setAttribute('aria-expanded', 'true');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('menu-open');
+    if (mobileClose) mobileClose.focus();
+  };
+
+  const closeMenu = () => {
+    mobileMenu.classList.remove('open');
+    burger.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('menu-open');
+    burger.focus();
+  };
+
+  /* Toggle al hacer clic en el burger */
+  burger.addEventListener('click', (e) => {
+    e.stopPropagation(); /* evita que el click llegue al document */
+    mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
+  });
+
+  /* Botón cerrar interno */
+  if (mobileClose) {
+    mobileClose.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeMenu();
     });
-  }, { threshold: 0.12 });
-  revealEls.forEach(el => revealObs.observe(el));
+  }
 
-  /* ── 3. EL ARTE DETRÁS DEL SONIDO — Acordeón (una sola apertura) ── */
+  /* Cierre al hacer clic en cualquier enlace del menú */
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => closeMenu());
+  });
+
+  /* Cierre con Escape */
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMenu();
+  });
+
+  /* Cierre al hacer clic FUERA del menú (no en el burger ni en el propio menú) */
+  document.addEventListener('click', (e) => {
+    if (
+      mobileMenu.classList.contains('open') &&
+      !mobileMenu.contains(e.target) &&
+      !burger.contains(e.target)
+    ) {
+      closeMenu();
+    }
+  });
+
+  /* El menú en sí: stopPropagation para que un clic dentro no lo cierre */
+  mobileMenu.addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
+}
+  /* ══════════════════════════════════════════════════════════
+     3. REVEAL on scroll
+     ══════════════════════════════════════════════════════════ */
+  const revealEls = document.querySelectorAll('.reveal');
+  if (revealEls.length) {
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => revealObs.observe(el));
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     4. EL ARTE DETRÁS DEL SONIDO — Acordeón (una apertura)
+     ══════════════════════════════════════════════════════════ */
   const arteItems = document.querySelectorAll('.arte__item');
   arteItems.forEach(item => {
     const header = item.querySelector('.arte__item-header');
+    if (!header) return;
 
     header.addEventListener('click', () => {
       const isOpen = item.classList.contains('open');
+      // Cierra todos
       arteItems.forEach(i => {
         i.classList.remove('open');
-        i.querySelector('.arte__item-header').setAttribute('aria-expanded', 'false');
+        i.querySelector('.arte__item-header')?.setAttribute('aria-expanded', 'false');
       });
+      // Abre el clickeado si estaba cerrado
       if (!isOpen) {
         item.classList.add('open');
         header.setAttribute('aria-expanded', 'true');
@@ -101,58 +160,79 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ── 4. MAPA DE GUITARRA — hotspots interactivos ───────── */
-  const hotspots   = document.querySelectorAll('.hotspot');
-  const panelEmpty = document.querySelector('.mapa__panel-empty');
-  const panels     = document.querySelectorAll('.mapa__panel-content');
+  /* ══════════════════════════════════════════════════════════
+     5. COMPONENTES DE LA GUITARRA — lista con descripción
+        expandible + imagen que puede cambiar por parte
+     ══════════════════════════════════════════════════════════ */
+  const parteBtns = document.querySelectorAll('.parte__btn');
+  const parteImg  = document.getElementById('componentesImage');
 
-  const activateHotspot = (target) => {
-    hotspots.forEach(h => h.setAttribute('aria-pressed', h.dataset.part === target ? 'true' : 'false'));
-    panels.forEach(p => p.classList.toggle('active', p.dataset.part === target));
-    if (panelEmpty) panelEmpty.style.display = 'none';
+  const activateParte = (btn) => {
+    const item = btn.closest('.parte');
+    document.querySelectorAll('.parte').forEach(p => p.classList.remove('parte--active'));
+    parteBtns.forEach(b => b.setAttribute('aria-expanded', 'false'));
+    item.classList.add('parte--active');
+    btn.setAttribute('aria-expanded', 'true');
+
+    if (parteImg && btn.dataset.image && parteImg.src.indexOf(btn.dataset.image) === -1) {
+      parteImg.style.opacity = '0';
+      setTimeout(() => {
+        parteImg.src = btn.dataset.image;
+        parteImg.style.opacity = '1';
+      }, 180);
+    }
   };
 
-  hotspots.forEach(h => {
-    h.addEventListener('click', () => activateHotspot(h.dataset.part));
+  parteBtns.forEach(btn => {
+    btn.addEventListener('click', () => activateParte(btn));
   });
-  // Activar el primero por defecto en escritorio
-  if (hotspots.length && window.innerWidth > 900) {
-    activateHotspot(hotspots[0].dataset.part);
-  }
 
-  /* ── 5. VIDEO SECTION — modo oscuro al hacer scroll ────── */
-  const videoSection = document.querySelector('.video-section');
-  if (videoSection) {
-    const videoObs = new IntersectionObserver((entries) => {
-      entries.forEach(e => videoSection.classList.toggle('dark-mode', e.isIntersecting));
-    }, { threshold: 0.35 });
-    videoObs.observe(videoSection);
-  }
-
-  /* ── 6. VIDEO — luce como póster, reproduce al hacer clic ─ */
+  /* ══════════════════════════════════════════════════════════
+     6. VIDEO — play/pause al hacer clic (sin botón visible)
+        Muestra la imagen si no hay video disponible
+     ══════════════════════════════════════════════════════════ */
   const videoWrapper = document.querySelector('.video-wrapper');
-  const videoEl      = document.querySelector('.video-wrapper video');
+  const videoEl      = videoWrapper?.querySelector('video');
+  const videoThumb   = videoWrapper?.querySelector('.video-thumb');
+
   if (videoWrapper && videoEl) {
-    videoWrapper.addEventListener('click', () => {
+    // Si el video no tiene src válido, muestra la imagen de fallback
+    videoEl.addEventListener('error', () => {
+      videoEl.style.display = 'none';
+      if (videoThumb) videoThumb.style.display = 'block';
+    });
+
+    const toggleVideo = () => {
       if (videoEl.paused) {
-        videoEl.muted = false;
-        videoEl.play().catch(() => { videoEl.muted = true; videoEl.play(); });
+        videoEl.play().catch(() => {
+          // Si no puede reproducir, no hace nada (queda como póster)
+        });
       } else {
         videoEl.pause();
       }
+    };
+
+    videoWrapper.addEventListener('click', toggleVideo);
+    videoWrapper.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleVideo(); }
     });
   }
 
-  /* ── 7. CURSOS — drag scroll (carrusel) ────────────────── */
+  /* ══════════════════════════════════════════════════════════
+     7. CURSOS — drag scroll en rail horizontal
+     ══════════════════════════════════════════════════════════ */
   const rail = document.querySelector('.cursos__rail');
   if (rail) {
     let isDown = false, startX = 0, scrollLeft = 0;
+
     rail.addEventListener('mousedown', e => {
-      isDown = true; rail.style.userSelect = 'none';
-      startX = e.pageX - rail.offsetLeft; scrollLeft = rail.scrollLeft;
+      isDown = true;
+      rail.style.cursor = 'grabbing';
+      startX     = e.pageX - rail.offsetLeft;
+      scrollLeft = rail.scrollLeft;
     });
     ['mouseleave', 'mouseup'].forEach(ev =>
-      rail.addEventListener(ev, () => { isDown = false; rail.style.userSelect = ''; })
+      rail.addEventListener(ev, () => { isDown = false; rail.style.cursor = ''; })
     );
     rail.addEventListener('mousemove', e => {
       if (!isDown) return;
@@ -162,192 +242,263 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ── 8. STATS — count-up compacto ──────────────────────── */
+  /* ══════════════════════════════════════════════════════════
+     8. STATS — count-up al entrar en viewport
+     ══════════════════════════════════════════════════════════ */
   const countUp = (el) => {
-    const target = parseFloat(el.dataset.target);
-    const suffix = el.dataset.suffix || '';
-    const duration = 1200;
-    const start = performance.now();
+    const target   = parseFloat(el.dataset.target);
+    const suffix   = el.dataset.suffix || '';
+    const duration = 1400;
+    const startTime = performance.now();
+
     const update = (now) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      const progress = Math.min((now - startTime) / duration, 1);
+      const ease     = 1 - Math.pow(1 - progress, 3); // ease-out cubic
       el.textContent = Math.round(ease * target) + suffix;
       if (progress < 1) requestAnimationFrame(update);
       else el.textContent = target + suffix;
     };
     requestAnimationFrame(update);
   };
+
   const statsObs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        const item = e.target;
-        item.classList.add('visible');
-        const valEl = item.querySelector('.stat-item__value[data-target]');
+        e.target.classList.add('visible');
+        const valEl = e.target.querySelector('.stat-item__value[data-target]');
         if (valEl) countUp(valEl);
-        statsObs.unobserve(item);
+        statsObs.unobserve(e.target);
       }
     });
-  }, { threshold: 0.25 });
+  }, { threshold: 0.2 });
+
   document.querySelectorAll('.stat-item').forEach(el => statsObs.observe(el));
 
-  /* ── 9. PROCESO steps — línea de tiempo con nota musical ─ */
-  const procesoStepsWrap = document.querySelector('.proceso__steps');
+  /* ══════════════════════════════════════════════════════════
+     9. PROCESO — steps interactivos (click para destacar)
+     ══════════════════════════════════════════════════════════ */
+  const procesoWrap  = document.querySelector('.proceso__steps');
   const procesoSteps = document.querySelectorAll('.proceso__step');
-  if (procesoStepsWrap && procesoSteps.length) {
+
+  if (procesoWrap && procesoSteps.length) {
     procesoSteps.forEach(step => {
       step.addEventListener('click', () => {
         const wasActive = step.classList.contains('active');
         procesoSteps.forEach(s => s.classList.remove('active'));
         if (!wasActive) {
           step.classList.add('active');
-          procesoStepsWrap.classList.add('has-active');
+          procesoWrap.classList.add('has-active');
         } else {
-          procesoStepsWrap.classList.remove('has-active');
+          procesoWrap.classList.remove('has-active');
         }
       });
     });
   }
 
-  /* ── 10. PÚAS DE MADERA — panel "código" abre/cierra ───── */
-  const pickCards = document.querySelectorAll('.pick-card');
-  const toggleEnabled = window.matchMedia('(hover: none)').matches;
+  /* ══════════════════════════════════════════════════════════
+     10. PÚAS DE MADERA — panel desplegable (click toggle)
+         En dispositivos táctiles: click abre/cierra
+         En desktop con hover: el CSS maneja la interacción
+     ══════════════════════════════════════════════════════════ */
+  const pickCards    = document.querySelectorAll('.pick-card');
+  const isTouchDevice = window.matchMedia('(hover: none)').matches;
+
   pickCards.forEach(card => {
     card.addEventListener('click', () => {
+      if (!isTouchDevice) return; // En desktop el hover del CSS es suficiente
       const wasOpen = card.classList.contains('open');
       pickCards.forEach(c => c.classList.remove('open'));
       if (!wasOpen) card.classList.add('open');
     });
+
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const wasOpen = card.classList.contains('open');
+        pickCards.forEach(c => c.classList.remove('open'));
+        if (!wasOpen) card.classList.add('open');
+      }
+    });
   });
 
-  /* ── 11. GALERÍA — lightbox simple ─────────────────────── */
-  const galeriaItems = document.querySelectorAll('.galeria-item');
-  if (galeriaItems.length) {
-    const lightbox = document.createElement('div');
-    lightbox.className = 'lightbox';
-    lightbox.innerHTML = `
-      <div class="lightbox__inner">
-        <button class="lightbox__close" aria-label="Cerrar">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-          </svg>
-        </button>
-        <img class="lightbox__img" src="" alt="">
-      </div>`;
-    document.body.appendChild(lightbox);
-    Object.assign(lightbox.style, {
-      position: 'fixed', inset: 0, background: 'rgba(17,17,17,0.95)',
-      zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center',
-      opacity: 0, pointerEvents: 'none', transition: 'opacity .25s ease',
-    });
-    const lbInner = lightbox.querySelector('.lightbox__inner');
-    Object.assign(lbInner.style, { position: 'relative', maxWidth: '90vw', maxHeight: '90svh' });
-    const lbImg = lightbox.querySelector('.lightbox__img');
-    Object.assign(lbImg.style, { display: 'block', maxWidth: '100%', maxHeight: '90svh', objectFit: 'contain' });
-    const lbClose = lightbox.querySelector('.lightbox__close');
-    Object.assign(lbClose.style, { position: 'absolute', top: '-44px', right: 0, background: 'transparent', border: 'none', color: '#fff', cursor: 'pointer', padding: '8px' });
+  /* ══════════════════════════════════════════════════════════
+     11. GALERÍA — Acordeón horizontal (estilo video_effects)
+         - Cursor personalizado que sigue el mouse
+         - Hover: columna se expande + aparece imagen
+         - Click: columna se abre a full con contenido
+         - Mobile: comportamiento desactivado
+     ══════════════════════════════════════════════════════════ */
+  const galeriaAccordion = document.getElementById('galeriaAccordion');
+  const galeriaCursor    = document.getElementById('galeriaCursor');
+  const galeriaCols      = document.querySelectorAll('.galeria-col');
 
-    const openLightbox = (src) => {
-      lbImg.src = src;
-      lightbox.style.opacity = 1;
-      lightbox.style.pointerEvents = 'all';
-      document.body.style.overflow = 'hidden';
-    };
-    const closeLightbox = () => {
-      lightbox.style.opacity = 0;
-      lightbox.style.pointerEvents = 'none';
-      document.body.style.overflow = '';
-    };
-    galeriaItems.forEach(item => {
-      item.addEventListener('click', () => {
-        const img = item.querySelector('img');
-        if (img) openLightbox(img.src);
+  if (galeriaAccordion && galeriaCols.length) {
+
+    // Asigna imágenes de fondo a cada columna desde data-img
+    galeriaCols.forEach(col => {
+      const img = col.dataset.img;
+      if (img) {
+        const bg = col.querySelector('.galeria-col__bg');
+        if (bg) bg.style.backgroundImage = `url('${img}')`;
+      }
+      // FIX: precargar la imagen y hacerla visible al hover sin esperar al CSS
+    if (img) {
+      const bg = col.querySelector('.galeria-col__bg');
+      if (bg) {
+        bg.style.backgroundImage = `url('${img}')`;
+        // Precarga para evitar flash blanco
+        const preload = new Image();
+        preload.src = img;
+      }
+    }
+    });
+
+    // Cursor personalizado (solo desktop)
+    if (galeriaCursor && window.matchMedia('(hover: hover)').matches) {
+      galeriaAccordion.addEventListener('mouseenter', () => {
+        galeriaCursor.classList.add('visible');
+        document.body.style.cursor = 'none';
       });
-    });
-    lbClose.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-  }
-
-  /* ── 12. GRANO SUTIL + LUZ QUE SIGUE EL MOUSE ──────────── */
-  /* Reemplaza el antiguo efecto "TV" (ruido + scanlines). Ahora es un grano
-     fijo muy sutil, más una luz difuminada que aparece al pasar el cursor. */
-  function createGrainAndSpotlight(section) {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Grano
-    if (!reduceMotion) {
-      const canvas = document.createElement('canvas');
-      canvas.className = 'dark-static-canvas';
-      canvas.setAttribute('aria-hidden', 'true');
-      section.appendChild(canvas);
-      const ctx = canvas.getContext('2d');
-      const resize = () => {
-        canvas.width = Math.ceil(section.offsetWidth / 4);
-        canvas.height = Math.ceil(section.offsetHeight / 4);
-      };
-      resize();
-      const draw = () => {
-        const w = canvas.width, h = canvas.height;
-        if (!w || !h) return;
-        const imgData = ctx.createImageData(w, h);
-        const d = imgData.data;
-        for (let i = 0; i < d.length; i += 4) {
-          const v = Math.random() * 255 | 0;
-          d[i] = d[i+1] = d[i+2] = v; d[i+3] = 255;
-        }
-        ctx.putImageData(imgData, 0, 0);
-      };
-      let isVisible = false, frame = 0, animId = null;
-      const loop = () => {
-        if (isVisible) {
-          frame++;
-          if (frame % 4 === 0) draw(); // redibuja cada pocos frames: grano fijo, no parpadeante
-          animId = requestAnimationFrame(loop);
-        }
-      };
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          isVisible = e.isIntersecting;
-          if (isVisible) { resize(); draw(); animId = requestAnimationFrame(loop); }
-          else if (animId) cancelAnimationFrame(animId);
-        });
-      }, { threshold: 0.05 });
-      obs.observe(section);
-      window.addEventListener('resize', () => { if (isVisible) resize(); }, { passive: true });
+      galeriaAccordion.addEventListener('mouseleave', () => {
+        galeriaCursor.classList.remove('visible');
+        document.body.style.cursor = '';
+      });
+      galeriaAccordion.addEventListener('mousemove', e => {
+        galeriaCursor.style.left = e.clientX + 'px';
+        galeriaCursor.style.top  = e.clientY + 'px';
+      });
     }
 
-    // Luz difuminada que sigue el mouse
-    const spot = document.createElement('div');
-    spot.className = 'mouse-spot';
-    spot.setAttribute('aria-hidden', 'true');
-    section.appendChild(spot);
-    section.addEventListener('mousemove', (e) => {
-      const rect = section.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      spot.style.setProperty('--mx', x + '%');
-      spot.style.setProperty('--my', y + '%');
-      spot.classList.add('active');
-    });
-    section.addEventListener('mouseleave', () => spot.classList.remove('active'));
-  }
-  const statSection = document.querySelector('.stats');
-  const videoSection2 = document.querySelector('.video-section');
-  if (statSection) createGrainAndSpotlight(statSection);
-  if (videoSection2) createGrainAndSpotlight(videoSection2);
+    // Click: abre la columna seleccionada
+    galeriaCols.forEach(col => {
+      col.addEventListener('click', e => {
+        // Si ya está activa y se hace clic en el botón cerrar
+        if (e.target.closest('.galeria-col__close')) {
+          col.classList.remove('active');
+          return;
+        }
+        // Si ya está activa: cerrar
+        if (col.classList.contains('active')) {
+          col.classList.remove('active');
+          return;
+        }
+        // Cerrar cualquier otra activa y abrir esta
+        galeriaCols.forEach(c => c.classList.remove('active'));
+        col.classList.add('active');
+      });
 
-  /* ── 13. FAQ — Acordeón ─────────────────────────────────── */
+      // Accesibilidad teclado
+      col.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          col.click();
+        }
+        if (e.key === 'Escape') {
+          col.classList.remove('active');
+          col.focus();
+        }
+      });
+    });
+
+    // Cerrar con clic fuera
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.galeria-col')) {
+        galeriaCols.forEach(c => c.classList.remove('active'));
+      }
+    });
+
+    // Cerrar con Escape global
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') galeriaCols.forEach(c => c.classList.remove('active'));
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     12. TESTIMONIOS — Carrusel con scroll-snap + botones + dots
+     ══════════════════════════════════════════════════════════ */
+  const carousel     = document.getElementById('testimoniosCarousel');
+  const btnPrev      = document.getElementById('testimoniosPrev');
+  const btnNext      = document.getElementById('testimoniosNext');
+  const dotsWrap     = document.getElementById('testimoniosDots');
+  const testimonios  = document.querySelectorAll('.testimonio-card');
+
+  if (carousel && testimonios.length) {
+    let currentIndex = 0;
+
+    // Crea dots
+    const dots = [];
+    if (dotsWrap) {
+      testimonios.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'testimonios__dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', `Ir al testimonio ${i + 1}`);
+        dot.addEventListener('click', () => scrollToCard(i));
+        dotsWrap.appendChild(dot);
+        dots.push(dot);
+      });
+    }
+
+    const updateDots = (index) => {
+      dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    };
+
+    const scrollToCard = (index) => {
+      const card = testimonios[index];
+      if (!card) return;
+      carousel.scrollTo({ left: card.offsetLeft - carousel.offsetLeft, behavior: 'smooth' });
+      currentIndex = index;
+      updateDots(index);
+    };
+
+    if (btnPrev) {
+      btnPrev.addEventListener('click', () => {
+        currentIndex = Math.max(0, currentIndex - 1);
+        scrollToCard(currentIndex);
+      });
+    }
+
+    if (btnNext) {
+      btnNext.addEventListener('click', () => {
+        currentIndex = Math.min(testimonios.length - 1, currentIndex + 1);
+        scrollToCard(currentIndex);
+      });
+    }
+
+    // Sync dots con scroll
+    const syncDots = () => {
+      const scrollCenter = carousel.scrollLeft + carousel.offsetWidth / 2;
+      testimonios.forEach((card, i) => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        if (Math.abs(scrollCenter - cardCenter) < card.offsetWidth / 2) {
+          currentIndex = i;
+          updateDots(i);
+        }
+      });
+    };
+
+    carousel.addEventListener('scroll', syncDots, { passive: true });
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     13. FAQ — Acordeón
+     ══════════════════════════════════════════════════════════ */
   const faqItems = document.querySelectorAll('.faq__item');
   faqItems.forEach(item => {
-    const btn = item.querySelector('.faq__question');
+    const btn    = item.querySelector('.faq__question');
     const answer = item.querySelector('.faq__answer');
+    if (!btn || !answer) return;
+
     btn.addEventListener('click', () => {
       const isOpen = item.classList.contains('open');
+
+      // Cierra todos
       faqItems.forEach(i => {
         i.classList.remove('open');
-        i.querySelector('.faq__question').setAttribute('aria-expanded', 'false');
-        i.querySelector('.faq__answer').style.setProperty('--ans-h', '0px');
+        i.querySelector('.faq__question')?.setAttribute('aria-expanded', 'false');
+        i.querySelector('.faq__answer')?.style.setProperty('--ans-h', '0px');
       });
+
+      // Abre el clickeado
       if (!isOpen) {
         item.classList.add('open');
         btn.setAttribute('aria-expanded', 'true');
@@ -356,28 +507,60 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ── 14. SELECTOR DE CURSOS — filtros ──────────────────── */
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const selectorCards = document.querySelectorAll('.selector-card');
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      selectorCards.forEach(card => {
-        const nivel = card.dataset.nivel;
-        if (filter === 'all' || nivel === filter) {
-          delete card.dataset.hidden;
-          card.classList.remove('visible');
-          setTimeout(() => card.classList.add('visible'), 50);
-        } else {
-          card.dataset.hidden = true;
+  /* ══════════════════════════════════════════════════════════
+     14. MADERAS — drag scroll horizontal (mobile)
+     ══════════════════════════════════════════════════════════ */
+  const picksGrid = document.querySelector('.picks__grid');
+  if (picksGrid) {
+    let isDown = false, startX = 0, scrollLeft = 0;
+
+    picksGrid.addEventListener('mousedown', e => {
+      isDown = true;
+      startX     = e.pageX - picksGrid.offsetLeft;
+      scrollLeft = picksGrid.scrollLeft;
+      picksGrid.style.cursor = 'grabbing';
+    });
+    ['mouseleave', 'mouseup'].forEach(ev =>
+      picksGrid.addEventListener(ev, () => { isDown = false; picksGrid.style.cursor = ''; })
+    );
+    picksGrid.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      picksGrid.scrollLeft = scrollLeft - (e.pageX - picksGrid.offsetLeft - startX) * 1.2;
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     15. NAV LINKS — highlight de la sección activa
+     ══════════════════════════════════════════════════════════ */
+  const sections   = document.querySelectorAll('section[id]');
+  const navLinks   = document.querySelectorAll('.nav__links a[href^="#"]');
+
+  if (sections.length && navLinks.length) {
+    const sectionObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(a => {
+            a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id);
+          });
         }
       });
+    }, { threshold: 0.4 });
+    sections.forEach(s => sectionObs.observe(s));
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     16. SMOOTH SCROLL — todos los anchors internos
+     ══════════════════════════════════════════════════════════ */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      const navHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h') || '64');
+      const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
+      window.scrollTo({ top, behavior: 'smooth' });
     });
   });
-
-  /* Nota: las cards de "Ver detalles" son enlaces <a> normales (misma pestaña),
-     así el botón "atrás" del navegador funciona como en cualquier sitio. */
 
 });
